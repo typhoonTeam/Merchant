@@ -28,6 +28,7 @@ import typhoon.merchant.service.impl.RegisterInfoServiceImpl;
 import typhoon.merchant.service.impl.ResturantServiceImpl;
 import typhoon.merchant.service.impl.UserServiceImpl;
 import typhoon.merchant.util.ImgUtil;
+import typhoon.merchant.util.UUIDUtil;
 
 /**
  * Servlet implementation class CompleteRegisterInfoServlet
@@ -82,12 +83,23 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 					InputStream in = fileItem.getInputStream();
 					picture = imgUtil.img2String(in);
 					byte[] buf = fileItem.get();
-					String fileName = fileItem.getName();
+					String fileName = UUIDUtil.uuid32()+fileItem.getName();;
 					OutputStream out = new FileOutputStream(
 							this.getServletContext().getRealPath("/img") + "/" + fileName);
-					picture2 = "img/" + fileItem.getName();
+					System.out.println(this.getServletContext().getRealPath("/img") + "/" + fileName);
+					picture2 = "img/" + fileName;
 					out.write(buf);
 					out.close();
+
+//					InputStream in = fileItem.getInputStream();
+//					picture = imgUtil.img2String(in);
+//					byte[] buf = fileItem.get();
+//					String fileName = fileItem.getName();
+//					OutputStream out = new FileOutputStream(
+//							this.getServletContext().getRealPath("/img") + "/" + fileName);
+//					picture2 = "img/" + fileItem.getName();
+//					out.write(buf);
+//					out.close();
 				}
 			}
 		} catch (FileUploadException e) {
@@ -101,8 +113,8 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 				shopName, address, comments);
 		System.out.println(registerInfo1.toString());
 		System.out.println(registerInfo2.toString());
-		userService.sendRegisterInfoToAdmin(registerInfo1);
-		registerInfoService.addRegisterInfo(registerInfo2);
+		userService.sendRegisterInfoToAdmin(registerInfo1);//发给admin
+		registerInfoService.addRegisterInfo(registerInfo2);//发给DB
 		resturantService.addDefaultResturant(shopId);
 		// request.setAttribute("checkStatus", userService.receiveCheckStatus(shopId));
 		request.getRequestDispatcher("login.jsp").forward(request, response);
