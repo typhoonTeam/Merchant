@@ -103,7 +103,7 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 		System.out.println(registerInfo2.toString());
 		userService.sendRegisterInfoToAdmin(registerInfo1);
 		registerInfoService.addRegisterInfo(registerInfo2);
-		resturantService.addResturant(shopId);
+		resturantService.addDefaultResturant(shopId);
 		// request.setAttribute("checkStatus", userService.receiveCheckStatus(shopId));
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}

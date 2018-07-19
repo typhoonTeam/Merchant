@@ -13,7 +13,11 @@ import typhoon.merchant.dao.FoodDao;
 import typhoon.merchant.pojo.Food;
 import typhoon.merchant.pojo.User;
 import typhoon.merchant.util.DBUtil;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class FoodDaoImpl implements FoodDao {
 	String sql = null;
 

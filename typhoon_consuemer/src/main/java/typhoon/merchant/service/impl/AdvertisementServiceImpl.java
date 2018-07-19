@@ -1,6 +1,10 @@
 package typhoon.merchant.service.impl;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -11,33 +15,36 @@ import javax.jms.TextMessage;
 import org.apache.activemq.command.ActiveMQQueue;
 
 import typhoon.merchant.dao.impl.AdvertisementDaoImpl;
-import typhoon.merchant.dao.impl.FoodDaoImpl;
+import typhoon.merchant.dao.impl.ResturantDaoImpl;
 import typhoon.merchant.pojo.Advertisement;
 import typhoon.merchant.service.AdvertisementService;
+import typhoon.merchant.util.DBUtil;
 import typhoon.merchant.util.JmsUtil;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class AdvertisementServiceImpl implements AdvertisementService {
-
 	private static AdvertisementServiceImpl instance;
-
-	private AdvertisementServiceImpl() {
-		initData();
-	}
-
-	public static AdvertisementServiceImpl getInstance() {
-		if (instance == null) {
-			synchronized (AdvertisementServiceImpl.class) {
-				if (instance == null) {
-					instance = new AdvertisementServiceImpl();
-				}
-			}
-		}
-		return instance;
-	}
-
-	public void initData() {
-	}
-
+	private AdvertisementDaoImpl impl;
+    private AdvertisementServiceImpl(){
+        initData();
+    }
+    public static AdvertisementServiceImpl getInstance(){
+        if(instance==null){
+            synchronized (AdvertisementServiceImpl.class){
+                if(instance==null){
+                    instance=new AdvertisementServiceImpl();
+                }
+            }
+        }
+        return instance;
+    }
+    public void initData() {
+    	impl = new AdvertisementDaoImpl(); 
+    }
+	
 	public int addAd(Advertisement ad) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -49,20 +56,27 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	}
 
 	public List<Advertisement> findAllAds(String shopId) {
-		AdvertisementDaoImpl imp = new AdvertisementDaoImpl();
-		List<Advertisement> list = imp.findAllAd(shopId);
+		List<Advertisement> list = impl.findAllAd(shopId);
 		return list;
 	}
 
 	public int updateAd(Advertisement ad) {
-		AdvertisementDaoImpl impl = new AdvertisementDaoImpl();
-		impl.updateAd(ad);
-		return 1;
+		return impl.updateAd(ad);
 	}
 
 	public int sendAdInfoToAdmin(String shopId) {
 		try {
-			Destination queue = new ActiveMQQueue("AMCQ");
+			Properties conf = new Properties(); 
+			try {
+				conf.load(new FileInputStream(getRealPath("dbconf.properties")));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Destination queue = new ActiveMQQueue(conf.getProperty("queueName"));
 			Session sen1 = JmsUtil.getSession(false, Session.CLIENT_ACKNOWLEDGE);
 			MessageProducer producer = sen1.createProducer(queue);
 			String json = "{\"shopId\":\"" + shopId + "\"}";
@@ -77,10 +91,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		}
 		return 1;
 	}
-
 	public Advertisement loadAd(Integer id) {
-		AdvertisementDaoImpl imp = new AdvertisementDaoImpl();
-		Advertisement res = imp.loadAd(id);
-		return res;
+		return impl.loadAd(id);
 	}
+	private static String getRealPath(String filePath) {
+    	System.out.println(DBUtil.class.getResource("/" + filePath).toString().substring(6));
+    	return DBUtil.class.getResource("/" + filePath).toString().substring(6);
+    }
 }

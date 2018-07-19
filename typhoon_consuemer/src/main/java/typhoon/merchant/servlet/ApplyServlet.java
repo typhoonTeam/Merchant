@@ -29,39 +29,44 @@ import typhoon.merchant.util.JmsUtil;
 import typhoon.merchant.util.JsonParse;
 import typhoon.merchant.util.JsonParseByJackson;
 import typhoon.merchant.util.SendMsgWithJMS;
-
 /**
- * Servlet implementation class ApplyServlet
+ * 
+ * @author GAOJO2
+ *
  */
 public class ApplyServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		AdvertisementServiceImpl service = AdvertisementServiceImpl.getInstance();
+	private static final long serialVersionUID = 1L;
+	AdvertisementServiceImpl service;   
+    public ApplyServlet() {
+        super();
+        }
+    @Override
+    public void init() throws ServletException {
+    	super.init();
+    	service = AdvertisementServiceImpl.getInstance();
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sen = request.getSession();
-		User user = (User) sen.getAttribute("user");
+		User user =(User) sen.getAttribute("user");
 		System.out.println(user.getShopId());
 		Integer id = Integer.valueOf(request.getParameter("ad_id"));
 		System.out.println(id);
 		sen.setAttribute("adId", id);
-		request.setAttribute("ad", service.loadAd(id));
+		request.setAttribute("ad",service.loadAd(id));
 		request.getRequestDispatcher("applyAd.jsp").forward(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		AdvertisementServiceImpl service = AdvertisementServiceImpl.getInstance();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sen = request.getSession();
-		User user = (User) sen.getAttribute("user");
-		Integer id = (Integer) sen.getAttribute("adId");
+		User user =(User) sen.getAttribute("user");
+		Integer id =(Integer) sen.getAttribute("adId");
 		String shopId = user.getShopId();
 		String picture = request.getParameter("picture");
-		String slogan = request.getParameter("slogan");
-		int state = Integer.valueOf(request.getParameter("state"));
+		String slogan =  request.getParameter("slogan");
+		int state =Integer.valueOf(request.getParameter("state"));
 		Date time = Date.valueOf(request.getParameter("time"));
 		Advertisement ad = new Advertisement(shopId, picture, slogan, state, time);
 		ad.setId(id);
 		service.updateAd(ad);
 		service.sendAdInfoToAdmin(shopId);
-	}
-
+    }
 }

@@ -10,7 +10,11 @@ import org.junit.Test;
 
 import typhoon.merchant.dao.impl.FoodDaoImpl;
 import typhoon.merchant.pojo.Food;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class FoodDaoImplTest {
 	static FoodDaoImpl foodDaoImpl;
 	@BeforeClass

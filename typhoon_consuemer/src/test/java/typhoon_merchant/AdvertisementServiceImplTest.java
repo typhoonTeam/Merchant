@@ -5,7 +5,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import typhoon.merchant.service.impl.AdvertisementServiceImpl;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class AdvertisementServiceImplTest {
 	static AdvertisementServiceImpl imp;
 	@BeforeClass

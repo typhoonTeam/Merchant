@@ -1,7 +1,11 @@
 package typhoon.merchant.pojo;
 
 import java.sql.Date;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class Advertisement {
 	private Integer id;
 	private String shop_id;

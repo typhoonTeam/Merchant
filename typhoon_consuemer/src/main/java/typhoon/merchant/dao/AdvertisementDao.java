@@ -1,5 +1,7 @@
 package typhoon.merchant.dao;
-
+/**
+ * @author GAOJO2
+ */
 import java.util.List;
 
 import typhoon.merchant.pojo.Advertisement;

@@ -1,5 +1,9 @@
 package typhoon.merchant.pojo;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class Food {
 	private int id;
 	private String foodName;

@@ -10,7 +10,11 @@ import java.util.List;
 
 import typhoon.merchant.dao.impl.AdvertisementDaoImpl;
 import typhoon.merchant.pojo.Advertisement;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class AdvertisementDaoImplTest {
 	static AdvertisementDaoImpl impl;
 	@BeforeClass

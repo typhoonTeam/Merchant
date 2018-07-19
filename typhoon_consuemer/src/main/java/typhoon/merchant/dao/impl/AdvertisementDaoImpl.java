@@ -13,6 +13,11 @@ import typhoon.merchant.dao.AdvertisementDao;
 import typhoon.merchant.pojo.Advertisement;
 import typhoon.merchant.pojo.Food;
 import typhoon.merchant.util.DBUtil;
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 
 public class AdvertisementDaoImpl implements AdvertisementDao {
 	public int deleteAd(Integer id) {
@@ -26,10 +31,9 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 			m = pStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			DBUtil.close(con, pStatement, null);
 		}
-
 		return m;
 	}
 
@@ -45,11 +49,10 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 			pStatement.setString(3, ad.getSlogan());
 			pStatement.setInt(4, ad.getState());
 			pStatement.setDate(5, ad.getTime());
-
 			num = pStatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			DBUtil.close(con, pStatement, null);
 		}
 		return num;
@@ -67,19 +70,16 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 			rs = pStatement.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getString("time"));
-
 				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),
 						Integer.valueOf(rs.getString("state")), rs.getDate("time"));
-				;
 				ad.setId(Integer.valueOf(rs.getString("id")));
 				list.add(ad);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			DBUtil.close(con, pStatement, rs);
 		}
-
 		return list;
 	}
 
@@ -99,13 +99,11 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			DBUtil.close(con, pStatement, null);
 		}
-
 		return num;
 	}
-
 	public Advertisement loadAd(Integer id) {
 		String sql = "select * from advertisement where id=?";
 		PreparedStatement pStatement = null;
@@ -124,8 +122,8 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 						rs.getInt("state"), rs.getDate("time"));
 				ad.setId(id);
 			}
-
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DBUtil.close(con, pStatement, rs);

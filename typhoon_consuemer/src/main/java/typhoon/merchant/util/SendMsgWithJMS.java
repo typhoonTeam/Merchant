@@ -17,7 +17,11 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 
 import typhoon.merchant.pojo.RegisterInfo;
-
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
 public class SendMsgWithJMS {
 	public static Properties conf = new Properties();
 

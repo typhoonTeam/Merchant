@@ -13,24 +13,30 @@ import typhoon.merchant.dao.impl.AdvertisementDaoImpl;
 import typhoon.merchant.pojo.Advertisement;
 import typhoon.merchant.pojo.User;
 import typhoon.merchant.service.impl.AdvertisementServiceImpl;
-
 /**
- * Servlet implementation class AdsListServlet
+ * 
+ * @author GAOJO2
+ *
  */
 public class AdsListServlet extends HttpServlet {
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		AdvertisementServiceImpl impl = AdvertisementServiceImpl.getInstance();
+	private static final long serialVersionUID = 1L;
+    AdvertisementServiceImpl impl;   
+    public AdsListServlet() {
+        super();
+    }
+    @Override
+    public void init() throws ServletException {
+    	super.init();
+    	impl = AdvertisementServiceImpl.getInstance();
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sen = request.getSession();
-		User user = (User) sen.getAttribute("user");
+		User user =(User) sen.getAttribute("user");
 		request.setAttribute("ads", impl.findAllAds(user.getShopId()));
 		request.getRequestDispatcher("adList.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -1,15 +1,19 @@
 package typhoon.merchant.pojo;
-
-public class Resturant {//é¤�åŽ…ä¿¡æ�¯
-	private String shop_id;//id
-	private String openTime;//å¼€é—¨æ—¶é—´
-	private String closeTime;//å…³é—­æ—¶é—´
-	private Double delivery;//è¿�é€�èŒƒå›´
-	private Double deli_fee;//è¿�è´¹
-	private String picture;//å›¾ç‰‡
-	private String slogan;//å¹¿å‘Šä»‹ç»�
-	private Integer status;//æ˜¯å�¦å…³åº—äº†
-	private String comments;//å¤‡æ³¨
+/**
+ * 
+ * @author GAOJO2
+ *
+ */
+public class Resturant {
+	private String shop_id;
+	private String openTime;
+	private String closeTime;
+	private Double delivery;
+	private Double deli_fee;
+	private String picture;
+	private String slogan;
+	private Integer status;
+	private String comments;
 	
 	
 	
