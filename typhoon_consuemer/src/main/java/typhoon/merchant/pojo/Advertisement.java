@@ -7,36 +7,40 @@ import java.sql.Date;
  *
  */
 public class Advertisement {
-	private Integer id;
-	private String shop_id;
+	private Integer id = 0;
+	private String shopId;
 	private String picture;
 	private String slogan;
+	private Double price;
 	private int state;
 	private Date time;
 	
 	public Advertisement() {
 		super();
 	}
-	public Advertisement(String shop_id, String picture, String slogan, int state, Date time) {
+	
+	public Advertisement(String shopId, String picture, String slogan, Double price, int state, Date time) {
 		super();
-		this.shop_id = shop_id;
+		this.shopId = shopId;
 		this.picture = picture;
 		this.slogan = slogan;
+		this.price = price;
 		this.state = state;
 		this.time = time;
 	}
+
 	public int getId() {
 		return id;
 	}
 	
-	public String getShop_id() {
-		return shop_id;
+	public String getShopId() {
+		return shopId;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public void setShop_id(String shop_id) {
-		this.shop_id = shop_id;
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 	public String getPicture() {
 		return picture;
@@ -62,10 +66,17 @@ public class Advertisement {
 	public void setTime(Date time) {
 		this.time = time;
 	}
+	
 	@Override
 	public String toString() {
-		return "Advertisement [id=" + id + ", shop_id=" + shop_id + ", picture=" + picture + ", slogan=" + slogan
-				+ ", state=" + state + ", time=" + time + "]";
+		return "Advertisement [id=" + id + ", shopId=" + shopId + ", picture=" + picture + ", slogan=" + slogan
+				+ ", price=" + price + ", state=" + state + ", time=" + time + "]";
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 	
 	

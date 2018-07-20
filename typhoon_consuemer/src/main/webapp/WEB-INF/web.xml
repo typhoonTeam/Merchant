@@ -85,6 +85,12 @@
 		<description></description>
 		<servlet-class>typhoon.merchant.servlet.UserExitServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>UpdateRestaurantServlet</servlet-name>
+		<display-name>UpdateRestaurantServlet</display-name>
+		<description></description>
+		<servlet-class>typhoon.merchant.servlet.UpdateRestaurantServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>UserLoginServlet</servlet-name>
@@ -137,6 +143,10 @@
 	<servlet-mapping>
 		<servlet-name>UserExitServlet</servlet-name>
 		<url-pattern>/UserExitServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdateRestaurantServlet</servlet-name>
+		<url-pattern>/UpdateRestaurantServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>login.jsp</welcome-file>

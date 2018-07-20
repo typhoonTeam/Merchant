@@ -11,6 +11,6 @@ public interface AdvertisementService {
 	public List<Advertisement> findAllAds(String shopId);
 	public int deleteAd(Integer id);
 	public int updateAd(Advertisement ad);
-	public int sendAdInfoToAdmin(String shopId);
+	public int sendAdInfoToAdmin(Advertisement ad);
 	public Advertisement loadAd(Integer id);
 }

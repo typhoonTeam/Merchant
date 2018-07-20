@@ -10,7 +10,7 @@
 <body>
 
 	<a href="welcome.jsp">去欢迎页</a> &nbsp;&nbsp;&nbsp;
-	<a href="./AdsListServlet">申请推荐</a> &nbsp;&nbsp;&nbsp;
+	<a href="applyAd.jsp">申请推荐</a> &nbsp;&nbsp;&nbsp;
 	<a href="addFood.jsp">添加菜品</a>&nbsp;&nbsp;&nbsp;
 	<a href="./UserExitServlet">退出</a>&nbsp;&nbsp;&nbsp;
 	<h2>菜品列表</h2>

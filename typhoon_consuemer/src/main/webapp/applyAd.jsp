@@ -8,15 +8,14 @@
 <title>发送推荐</title>
 </head>
 <body>
-    <form action="ApplyServlet" method="post">
-    标语 <input type="text" name="slogan" value="${ad.getSlogan()}"/>
+    <form action="ApplyServlet" method="post"  enctype="multipart/form-data">
+    标语 ：<input type="text" name="slogan" />
      <br>
-   状态  <input type="text" name="state" value="${ad.getState()}"/>
-    <br>
-  时间  <input type="text" name="time" value="${ad.getTime()}"/>
+     时间 ： <input type="date" name="time" />
    <br>
-    <img src="${ad.getPicture()}" width="130"  height="130"> 
-     <br> <input type="hidden" name="picture" value = "${ad.getPicture()}"/>
+     价格 ： <input type="text" name="price" />
+   <br>
+     选择图片 ： <input type="file" name="picture" />
     <br>
     <input type="submit" value="发送">
     </form>

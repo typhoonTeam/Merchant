@@ -8,12 +8,12 @@
 <title>修改资料</title>
 </head>
 <body>
-<form action="ShowRestaurantDetailServlet" method="post">
+<form action="UpdateRestaurantServlet" method="post" enctype="multipart/form-data">
 <div >
     <br>
     <br>
-    开业时间  <input name="openTime" type="time" value="${Msg.getOpenTime()}">
-    休业时间  <input name="closeTime" type="time" value="${Msg.getCloseTime()}">
+    开业时间  <input name="openTime" type="text" value="${Msg.getOpenTime()}">
+    休业时间  <input name="closeTime" type="text" value="${Msg.getCloseTime()}">
 
     <br>
     <br>
@@ -23,12 +23,8 @@
 
 
     <br>
-    图片 ： <img name="img1" src="${Msg.getPicture()}" width="150" height="150">
-   <input  name="picture" type="hidden" value="${Msg.getPicture()}"/>
-    
-   <!--<br>
-    密码  <input id="password" type="text" placeholder="${user.getPassword()}">
-    <br>  -->
+    图片 ： <img name="img1" src="${Msg.getPicture()}" width="150" height="150" value="${Msg.getPicture()}">
+  上传新图片： <input  name="picture" type="file" value="${Msg.getPicture()}"/>
       
     <br>
     <br>

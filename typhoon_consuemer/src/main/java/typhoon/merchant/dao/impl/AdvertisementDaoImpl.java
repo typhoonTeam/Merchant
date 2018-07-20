@@ -44,7 +44,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 		Connection con = DBUtil.getConnection();
 		try {
 			pStatement = con.prepareStatement(sql);
-			pStatement.setString(1, ad.getShop_id());
+			pStatement.setString(1, ad.getShopId());
 			pStatement.setString(2, ad.getPicture());
 			pStatement.setString(3, ad.getSlogan());
 			pStatement.setInt(4, ad.getState());
@@ -70,9 +70,10 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 			rs = pStatement.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getString("time"));
-				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),
+				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),rs.getDouble("price"),
 						Integer.valueOf(rs.getString("state")), rs.getDate("time"));
 				ad.setId(Integer.valueOf(rs.getString("id")));
+				ad.setPrice(100.0);
 				list.add(ad);
 			}
 		} catch (Exception e) {
@@ -118,7 +119,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 				ad = new Advertisement();
 				ad.setId(id);
 			} else {
-				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),
+				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),100.00,
 						rs.getInt("state"), rs.getDate("time"));
 				ad.setId(id);
 			}

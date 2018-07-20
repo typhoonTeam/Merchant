@@ -20,6 +20,7 @@ import typhoon.merchant.pojo.Advertisement;
 import typhoon.merchant.service.AdvertisementService;
 import typhoon.merchant.util.DBUtil;
 import typhoon.merchant.util.JmsUtil;
+import typhoon.merchant.util.JsonParseByJackson;
 /**
  * 
  * @author GAOJO2
@@ -64,7 +65,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		return impl.updateAd(ad);
 	}
 
-	public int sendAdInfoToAdmin(String shopId) {
+	public int sendAdInfoToAdmin(Advertisement ad) {
 		try {
 			Properties conf = new Properties(); 
 			try {
@@ -79,7 +80,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 			Destination queue = new ActiveMQQueue(conf.getProperty("queueName"));
 			Session sen1 = JmsUtil.getSession(false, Session.CLIENT_ACKNOWLEDGE);
 			MessageProducer producer = sen1.createProducer(queue);
-			String json = "{\"shopId\":\"" + shopId + "\"}";
+			JsonParseByJackson<Advertisement> parse = new JsonParseByJackson<Advertisement>();
+			String json = parse.parseObjectToJson(ad);
 			System.out.println(json);
 			TextMessage msg = sen1.createTextMessage(json);
 			msg.acknowledge();
