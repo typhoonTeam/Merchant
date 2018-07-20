@@ -10,23 +10,24 @@
 
 	<form action="CompleteRegisterInfoServlet" method="post" enctype="multipart/form-data">
 		<hr>
-		credit_code:<input type="text" name="creditCode">
+		工商号:<input type="text" name="creditCode" value="${reg.creditCode}">
 		<hr>
-		id_card:<input type="text" name="idCard" />
+		身份证:<input type="text" name="idCard" value="${reg.idCard}" />
 		<hr>
-		phone:<input type="text" name="phone">
+		电话:<input type="text" name="phone" value="${reg.phone}">
 		<hr>
-		法人名:<input type="text" name="corporateName">
+		法人名:<input type="text" name="corporateName" value="${reg.corporateName}">
 		<hr>
-		shop_name:<input type="text" name="shopName">
+		店铺：<input type="text" name="shopName" value="${reg.shopName}">
 		<hr>
-		address:<input type="text" name="address">
+		地址:<input type="text" name="address" value="${reg.address}">
 		<hr>
-		comments:<input type="text" name="comments">
+		备注:<input type="text" name="comments" value="${reg.comments}">
 		<hr>
-		picture:<input type="file" name="picture">
+		<img src='${reg.picture}' width='130'>
+		身份证图片:<input type="file" name="picture" value="${reg.picture}">
 		<hr>
-		<input type="submit" value="提交店铺信息" />
+		<input type="submit" value="提交店铺信息" />	
 		<hr>
 	</form>
 </body>

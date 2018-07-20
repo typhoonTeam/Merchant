@@ -21,6 +21,7 @@ import typhoon.merchant.dao.impl.RegisterInfoDaoImpl;
 import typhoon.merchant.pojo.Food;
 import typhoon.merchant.service.FoodService;
 import typhoon.merchant.util.ImgUtil;
+import typhoon.merchant.util.UUIDUtil;
 
 public class FoodServiceImpl implements FoodService {
 	FoodDao foodDao;
@@ -133,7 +134,6 @@ public class FoodServiceImpl implements FoodService {
 				if (fileItem.isFormField()) {
 
 					if (fileItem.getFieldName().equals("foodName")) {
-						// foodName = fileItem.getString();
 						foodName = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("price")) {
 						price = Double.valueOf(fileItem.getString());
@@ -147,11 +147,9 @@ public class FoodServiceImpl implements FoodService {
 					InputStream in = fileItem.getInputStream();
 					// picture = imgUtil.img2String(in);
 					byte[] buf = fileItem.get();
-					String fileName = fileItem.getName();
+					String fileName = UUIDUtil.uuid32()+fileItem.getName();
 					OutputStream out = new FileOutputStream(path + "/" + fileName);
-					picture = "img/" + fileItem.getName();
-					// picture =
-					// "http://10.222.29.191:9090/typhoon_merchant/img/"+fileItem.getName();
+					picture = "img/" + fileName;
 					out.write(buf);
 					out.close();
 				}
