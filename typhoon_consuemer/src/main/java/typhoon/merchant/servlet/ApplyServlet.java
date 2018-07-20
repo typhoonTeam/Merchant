@@ -7,37 +7,22 @@ import java.io.OutputStream;
 import java.sql.Date;
 import java.util.List;
 
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 
-import typhoon.merchant.dao.impl.AdvertisementDaoImpl;
-import typhoon.merchant.dao.impl.ResturantDaoImpl;
 import typhoon.merchant.pojo.Advertisement;
-import typhoon.merchant.pojo.RegisterInfo;
-import typhoon.merchant.pojo.Resturant;
 import typhoon.merchant.pojo.User;
-import typhoon.merchant.service.AdvertisementService;
 import typhoon.merchant.service.impl.AdvertisementServiceImpl;
 import typhoon.merchant.util.ImgUtil;
-import typhoon.merchant.util.JmsUtil;
-import typhoon.merchant.util.JsonParse;
-import typhoon.merchant.util.JsonParseByJackson;
-import typhoon.merchant.util.SendMsgWithJMS;
 import typhoon.merchant.util.UUIDUtil;
 /**
  * 
@@ -74,11 +59,11 @@ public class ApplyServlet extends HttpServlet {
 			for(FileItem fileItem:fileItems) {
 				if(fileItem.isFormField()) {
 					if (fileItem.getFieldName().equals("slogan")) {
-						slogan = fileItem.getString();
+						slogan = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("time")) {
-						time = Date.valueOf(fileItem.getString());
+						time = Date.valueOf(new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8"));
 					}else if (fileItem.getFieldName().equals("price")) {
-						price = Double.valueOf(fileItem.getString());
+						price = Double.valueOf(new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8"));
 					}
 				}else {
 					InputStream in = fileItem.getInputStream();
