@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h2>
-		你的用户ID :${user.getShopId()}
+		你的用户ID :${user.getShopId()}<a href="./UserExitServlet">退出</a>&nbsp;&nbsp;&nbsp;
 		<hr>
 		你的用户名 :${user.getUsername()}
 		<button
