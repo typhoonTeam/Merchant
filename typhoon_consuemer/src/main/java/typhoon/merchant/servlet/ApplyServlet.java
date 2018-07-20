@@ -85,6 +85,6 @@ public class ApplyServlet extends HttpServlet {
 		Advertisement ad2 = new Advertisement(shopId, picture2, slogan,price, 0, time);
 	    service.addAd(ad2);
 		service.sendAdInfoToAdmin(ad1);
-		request.getRequestDispatcher("foods.jsp").forward(request, response);
+		request.getRequestDispatcher("ShowFoodsServlet").forward(request, response);
     }
 }

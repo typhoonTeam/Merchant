@@ -63,17 +63,17 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 					if (fileItem.getFieldName().equals("creditCode")) {
 						creditCode = fileItem.getString();
 					} else if (fileItem.getFieldName().equals("idCard")) {
-						idCard = fileItem.getString();
+						idCard = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("phone")) {
-						phone = fileItem.getString();
+						phone = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("shopName")) {
-						shopName = fileItem.getString();
+						shopName = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("address")) {
-						address = fileItem.getString();
+						address = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("comments")) {
-						comments = fileItem.getString();
+						comments = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("corporateName")) {
-						corporateName = fileItem.getString();
+						corporateName = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					}
 					// System.out.println(fileItem.getFieldName() + "\t" + fileItem.getString());
 				} else {
