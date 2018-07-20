@@ -47,8 +47,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 	
 	public int addAd(Advertisement ad) {
-		// TODO Auto-generated method stub
-		return 0;
+		return impl.addAd(ad);
 	}
 
 	public int deleteAd(Integer id) {

@@ -66,7 +66,9 @@ public class ApplyServlet extends HttpServlet {
 		String slogan = null;
 		Date time = null;
 		String picture = null;
+		String picture2 = null;
 		Double price = null;
+		ImgUtil imgUtil = new ImgUtil();
 		try {
 			fileItems = upload.parseRequest(new ServletRequestContext(request));
 			for(FileItem fileItem:fileItems) {
@@ -74,23 +76,30 @@ public class ApplyServlet extends HttpServlet {
 					if (fileItem.getFieldName().equals("slogan")) {
 						slogan = fileItem.getString();
 					} else if (fileItem.getFieldName().equals("time")) {
-						System.out.println(fileItem.getFieldName());
 						time = Date.valueOf(fileItem.getString());
 					}else if (fileItem.getFieldName().equals("price")) {
 						price = Double.valueOf(fileItem.getString());
 					}
 				}else {
 					InputStream in = fileItem.getInputStream();
-					picture = ImgUtil.img2String(in);
+					picture = imgUtil.img2String(in);
+					byte[] buf = fileItem.get();
+					String fileName = UUIDUtil.uuid32()+fileItem.getName();;
+					OutputStream out = new FileOutputStream(
+							this.getServletContext().getRealPath("/img") + "/" + fileName);
+					System.out.println("获取到图片的储存路径："+this.getServletContext().getRealPath("/img") + "/" + fileName);
+					picture2 = "img/" + fileName;
+					out.write(buf);
+					out.close();
 				}
 		    } 
 		}catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-
-		Advertisement ad = new Advertisement(shopId, picture, slogan,price, 0, time);
-	   // service.updateAd(ad);
-		service.sendAdInfoToAdmin(ad);
+		Advertisement ad1 = new Advertisement(shopId, picture, slogan,price, 0, time);
+		Advertisement ad2 = new Advertisement(shopId, picture2, slogan,price, 0, time);
+	    service.addAd(ad2);
+		service.sendAdInfoToAdmin(ad1);
 		request.getRequestDispatcher("foods.jsp").forward(request, response);
     }
 }

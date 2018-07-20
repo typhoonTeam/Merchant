@@ -38,6 +38,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 	}
 
 	public int addAd(Advertisement ad) {
+		System.out.println("heheheeheheh   "+ad.toString());
 		int num = 0;
 		String sql = "INSERT INTO advertisement(id,shop_id,picture,slogan,state,time) VALUES (ad_seq.nextval,?,?,?,?,?)";
 		PreparedStatement pStatement = null;
