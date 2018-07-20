@@ -34,15 +34,12 @@ import typhoon.merchant.util.UUIDUtil;
  * Servlet implementation class CompleteRegisterInfoServlet
  */
 public class CompleteRegisterInfoServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	UserService userService = UserServiceImpl.getInstance();
 	RegisterInfoService registerInfoService = RegisterInfoServiceImpl.getInstance();
 	ResturantService resturantService = ResturantServiceImpl.getInstance();
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
@@ -90,16 +87,6 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 					picture2 = "img/" + fileName;
 					out.write(buf);
 					out.close();
-
-//					InputStream in = fileItem.getInputStream();
-//					picture = imgUtil.img2String(in);
-//					byte[] buf = fileItem.get();
-//					String fileName = fileItem.getName();
-//					OutputStream out = new FileOutputStream(
-//							this.getServletContext().getRealPath("/img") + "/" + fileName);
-//					picture2 = "img/" + fileItem.getName();
-//					out.write(buf);
-//					out.close();
 				}
 			}
 		} catch (FileUploadException e) {
@@ -116,7 +103,7 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 		userService.sendRegisterInfoToAdmin(registerInfo1);//发给admin
 		registerInfoService.addRegisterInfo(registerInfo2);//发给DB
 		resturantService.addDefaultResturant(shopId);
-		// request.setAttribute("checkStatus", userService.receiveCheckStatus(shopId));
+		request.getSession().setAttribute("reg", registerInfo2);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 }

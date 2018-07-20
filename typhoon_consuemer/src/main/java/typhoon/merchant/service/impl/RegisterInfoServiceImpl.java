@@ -31,7 +31,7 @@ public class RegisterInfoServiceImpl implements RegisterInfoService {
 	}
 
 	public void addRegisterInfo(RegisterInfo registerInfo) {
-		registerInfoDao.addRegisterInfo(registerInfo);
+		registerInfoDao.addOrUpdateRegisterInfo(registerInfo);
 	}
 
 	public RegisterInfo findRegisterInfoByShopId(String shopId) {
