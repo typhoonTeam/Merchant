@@ -71,7 +71,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 			rs = pStatement.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getString("time"));
-				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),rs.getDouble("price"),
+				ad = new Advertisement(rs.getString("shop_id"), "",rs.getString("picture"), rs.getString("slogan"),rs.getDouble("price"),
 						Integer.valueOf(rs.getString("state")), rs.getDate("time"));
 				ad.setId(Integer.valueOf(rs.getString("id")));
 				ad.setPrice(100.0);
@@ -120,7 +120,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 				ad = new Advertisement();
 				ad.setId(id);
 			} else {
-				ad = new Advertisement(rs.getString("shop_id"), rs.getString("picture"), rs.getString("slogan"),100.00,
+				ad = new Advertisement(rs.getString("shop_id"),"", rs.getString("picture"), rs.getString("slogan"),100.00,
 						rs.getInt("state"), rs.getDate("time"));
 				ad.setId(id);
 			}

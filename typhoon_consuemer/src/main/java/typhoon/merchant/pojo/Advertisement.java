@@ -9,6 +9,7 @@ import java.sql.Date;
 public class Advertisement {
 	private Integer id = 0;
 	private String shopId;
+	private String shopName;
 	private String picture;
 	private String slogan;
 	private Double price;
@@ -19,8 +20,10 @@ public class Advertisement {
 		super();
 	}
 	
-	public Advertisement(String shopId, String picture, String slogan, Double price, int state, Date time) {
+	public Advertisement(String shopId,String shopName,  String picture, String slogan, Double price, int state,
+			Date time) {
 		super();
+		this.shopName = shopName;
 		this.shopId = shopId;
 		this.picture = picture;
 		this.slogan = slogan;
@@ -69,14 +72,23 @@ public class Advertisement {
 	
 	@Override
 	public String toString() {
-		return "Advertisement [id=" + id + ", shopId=" + shopId + ", picture=" + picture + ", slogan=" + slogan
-				+ ", price=" + price + ", state=" + state + ", time=" + time + "]";
+		return "Advertisement [id=" + id + ", shopName=" + shopName + ", shopId=" + shopId + ", picture=" + picture
+				+ ", slogan=" + slogan + ", price=" + price + ", state=" + state + ", time=" + time + "]";
 	}
+
 	public Double getPrice() {
 		return price;
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 	
 	

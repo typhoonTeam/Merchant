@@ -23,7 +23,7 @@ public class AdvertisementDaoImplTest {
 	}
 	@Test
 	public void testAddAd() {
-		Advertisement ad = new Advertisement("429c12d1d19644a9a183daea4c3dcb76", "www.xx.com", "gogogo", 11.2,0, new Date(19911211));
+		Advertisement ad = new Advertisement("429c12d1d19644a9a183daea4c3dcb76", "test","www.xx.com", "gogogo", 11.2,0, new Date(19911211));
 		int m = impl.addAd(ad);
 		Assert.assertTrue(m>0);
 	}
@@ -36,7 +36,7 @@ public class AdvertisementDaoImplTest {
 	@Test
 	public void testUpdateAd() {
 		int m = 0;
-		Advertisement ad = new Advertisement("0b8cf80645a042e185c8ab9f59a1d734", "http://10.222.29.191:9090/typhoon_merchant/img/1123.jpg", "黄焖鸡米饭开张了！首天开张通通5折", 11.2,0, new Date(19911112));
+		Advertisement ad = new Advertisement("0b8cf80645a042e185c8ab9f59a1d734","test","http://10.222.29.191:9090/typhoon_merchant/img/1123.jpg", "黄焖鸡米饭开张了！首天开张通通5折", 11.2,0, new Date(19911112));
 		ad.setId(5);
 		m = impl.updateAd(ad);
 		Assert.assertTrue(m>0);

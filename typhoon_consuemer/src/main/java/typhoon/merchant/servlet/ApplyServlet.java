@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 
+import typhoon.merchant.dao.impl.RegisterInfoDaoImpl;
 import typhoon.merchant.pojo.Advertisement;
 import typhoon.merchant.pojo.User;
 import typhoon.merchant.service.impl.AdvertisementServiceImpl;
@@ -81,8 +82,9 @@ public class ApplyServlet extends HttpServlet {
 		}catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-		Advertisement ad1 = new Advertisement(shopId, picture, slogan,price, 0, time);
-		Advertisement ad2 = new Advertisement(shopId, picture2, slogan,price, 0, time);
+		String shopName = new RegisterInfoDaoImpl().findRegisterInfoByShopId(shopId).getShopName();
+		Advertisement ad1 = new Advertisement(shopId, shopName,picture, slogan,price, 0, time);
+		Advertisement ad2 = new Advertisement(shopId, shopName, picture2, slogan,price, 0, time);
 	    service.addAd(ad2);
 		service.sendAdInfoToAdmin(ad1);
 		request.getRequestDispatcher("ShowFoodsServlet").forward(request, response);
