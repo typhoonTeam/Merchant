@@ -29,11 +29,11 @@ public class ResturantDaoImpl implements ResturantDao{
 			pStatement.setString(1,resturant.getOpenTime());
 			pStatement.setString(2,resturant.getCloseTime());
 			pStatement.setDouble(3,resturant.getDelivery());
-			pStatement.setDouble(4,resturant.getDeli_fee());
+			pStatement.setDouble(4,resturant.getDeliFee());
 			pStatement.setString(5,resturant.getPicture());
 			pStatement.setString(6,resturant.getSlogan());
 			pStatement.setString(7,resturant.getComments());
-			pStatement.setString(8,resturant.getShop_id());
+			pStatement.setString(8,resturant.getShopId());
 			m = pStatement.executeUpdate();		
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -5,11 +5,11 @@ package typhoon.merchant.pojo;
  *
  */
 public class Resturant {
-	private String shop_id;
+	private String shopId;
 	private String openTime;
 	private String closeTime;
 	private Double delivery;
-	private Double deli_fee;
+	private Double deliFee;
 	private String picture;
 	private String slogan;
 	private Integer status;
@@ -24,23 +24,26 @@ public class Resturant {
 	public Resturant(String shop_id, String openTime, String closeTime, Double delivery, Double deli_fee,
 			String picture, String slogan, Integer status, String comments) {
 		super();
-		this.shop_id = shop_id;
+		this.shopId = shop_id;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
 		this.delivery = delivery;
-		this.deli_fee = deli_fee;
+		this.deliFee = deli_fee;
 		this.picture = picture;
 		this.slogan = slogan;
 		this.status = status;
 		this.comments = comments;
 	}
 	
-	public String getShop_id() {
-		return shop_id;
+	
+	public String getShopId() {
+		return shopId;
 	}
-	public void setShop_id(String shop_id) {
-		this.shop_id = shop_id;
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
+
 	public String getOpenTime() {
 		return openTime;
 	}
@@ -60,12 +63,15 @@ public class Resturant {
 	public void setDelivery(Double delivery) {
 		this.delivery = delivery;
 	}
-	public Double getDeli_fee() {
-		return deli_fee;
+	
+	public Double getDeliFee() {
+		return deliFee;
 	}
-	public void setDeli_fee(Double deli_fee) {
-		this.deli_fee = deli_fee;
+
+	public void setDeliFee(Double deliFee) {
+		this.deliFee = deliFee;
 	}
+
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
@@ -95,8 +101,8 @@ public class Resturant {
 
 	@Override
 	public String toString() {
-		return "Resturant [shop_id=" + shop_id + ", openTime=" + openTime + ", closeTime=" + closeTime + ", delivery="
-				+ delivery + ", deli_fee=" + deli_fee + ", picture=" + picture + ", slogan=" + slogan + ", status="
+		return "Resturant [shop_id=" + shopId + ", openTime=" + openTime + ", closeTime=" + closeTime + ", delivery="
+				+ delivery + ", deli_fee=" + deliFee + ", picture=" + picture + ", slogan=" + slogan + ", status="
 				+ status + ", comments=" + comments + "]";
 	}
 	

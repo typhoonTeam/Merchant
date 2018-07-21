@@ -41,6 +41,8 @@ public class UpdateRestaurantServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("------------------------UpdateRestaurantServlet------------------------------");
+
 		HttpSession sen = request.getSession();
 		User user =(User) sen.getAttribute("user");
 		FileUpload upload = new FileUpload(new DiskFileItemFactory());
@@ -90,7 +92,7 @@ public class UpdateRestaurantServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		impl.updateResturant(new Resturant(shopId, openTime, closeTime, delivery, deliFee, picture, slogan, 0, comments));
-		request.getRequestDispatcher("ShowRestaurantDetailServlet").forward(request, response);
+	//	request.getRequestDispatcher("ShowRestaurantDetailServlet").forward(request, response);
 	}
 
 }
