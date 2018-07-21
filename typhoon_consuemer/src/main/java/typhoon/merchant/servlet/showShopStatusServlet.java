@@ -23,30 +23,38 @@ import typhoon.merchant.util.JsonParseByJackson;
  */
 public class showShopStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    UserService userService = UserServiceImpl.getInstance();
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	UserService userService = UserServiceImpl.getInstance();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("------------------------showShopStatusServlet------------------------------");
 		User user = (User) request.getSession().getAttribute("user");
-//		int checkStatus = userService.receiveCheckStatus(user.getShopId());//返回从A端获得的店铺状态
+		// int checkStatus =
+		// userService.receiveCheckStatus(user.getShopId());//返回从A端获得的店铺状态
 		JsonOutUtil jsonOutUtil = new JsonOutUtil();
-//		jsonOutUtil.outJson(request, response, (Integer)checkStatus);//[{checkStatus:2}]
-//		jsonOutUtil.outJson(response, true);
-		
+		// jsonOutUtil.outJson(request, response,
+		// (Integer)checkStatus);//[{checkStatus:2}]
+		// jsonOutUtil.outJson(response, true);
+
 		response.setContentType("text/html;charset=UTF-8");
-		response.setHeader("Pragma","No-cache");
+		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", -10);
-		PrintWriter out=response.getWriter();
-//		ObjectMapper mapper=new ObjectMapper();
-//		String jsonStr=mapper.writeValueAsString();
-		JsonParse<User> jsonUtil=new JsonParseByJackson<>();
-		String result = jsonUtil.parseObjectToJson(new User("fadsj","kfsjd","dfklsj"));
-//		String parseListToJson = jsonUtil.parseListToJson(new ArrayList<>());
-		System.out.println(result);
-		out.print(result);
-		        out.flush();
+		PrintWriter out = response.getWriter();
+		// ObjectMapper mapper=new ObjectMapper();
+		// String jsonStr=mapper.writeValueAsString();
+		JsonParse<User> jsonUtil = new JsonParseByJackson<>();
+		String result = jsonUtil.parseObjectToJson(new User("fadsj", "kfsjd", "dfklsj"));
+		// String parseListToJson = jsonUtil.parseListToJson(new ArrayList<>());
+//		out.print(result);
+		out.print("{\"checkStatus\":\"1\"}");
+//		System.out.println(result);
+//		System.out.println("{\"checkStatus\": 1}");
+		out.flush();
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
