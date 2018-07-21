@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>店家状态</title>
+<title>Merchant Main</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -53,31 +53,133 @@
 
 
 	<div class="sidebar-nav">
+		<!--<a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>dashboard</a>-->
+		<!--<ul id="dashboard-menu" class="nav nav-list collapse in">-->
+		<!--<li><a href="index.html">Home</a></li>-->
+		<!--<li><a href="users.html">Sample List</a></li>-->
+		<!--<li><a href="user.html">Sample Item</a></li>-->
+		<!--<li><a href="media.html">Media</a></li>-->
+		<!--<li><a href="calendar.html">Calendar</a></li>-->
+		<!--</ul>-->
 		<a href="#shop-menu" class="nav-header" data-toggle="collapse"></i>店铺操作</a>
 		<ul id="shop-menu" class="nav nav-list collapse in">
-			<li><a href="index.html" onclick="showShopStatus()">店铺状态</a></li>
-			<li><a href="index.html">查看注册信息</a></li>
-			<li><a href="users.html">申请店铺广告</a></li>
+			<li><a href="showShopStatus.html">店铺状态</a></li>
+			<li><a href="showRegisterInfo.html">查看注册信息</a></li>
+			<li><a href="applyAd.html">申请店铺广告</a></li>
 		</ul>
 		<a href="#food-menu" class="nav-header" data-toggle="collapse"></i>菜品操作</a>
 		<ul id="food-menu" class="nav nav-list collapse in">
-			<li><a href="index.html">查看我的菜品</a></li>
-			<li><a href="users.html">添加菜品</a></li>
+			<li><a href="showMyFoods.html">查看我的菜品</a></li>
+			<li><a href="addFood.html">添加菜品</a></li>
 		</ul>
 		<a href="#user-menu" class="nav-header" data-toggle="collapse"></i>个人操作</a>
 		<ul id="user-menu" class="nav nav-list collapse in">
-			<li><a href="index.html">修改个人信息</a></li>
-			<li><a href="users.html">修改密码</a></li>
+			<li><a href="updateInfo.html">修改个人信息</a></li>
+			<li><a href="updatePw.html">修改密码</a></li>
 		</ul>
+	</div>
+	<div class="content" id="content">
+		<div class="container">
+
+			<div class="col-md-3"></div>
+			<div class="col-md-6" id="myCol">
+				<h1 id="status"></h1>
+				<h2 id="status_info"></h2>
+				<form type="hidden" id="applyForm" action="">
+					<label>工商号</label><input type="text" name="creditCode"
+						class="input-xlarge" /> <label>身份证</label><input type="text"
+						name="idCard" class="input-xlarge" /> <label>电话</label><input
+						type="text" name="phone" class="input-xlarge" /> <label>Username</label>
+					<input type="text" value="" class="input-xlarge"> <label>法人名</label><input
+						type="text" name="corporateName" class="input-xlarge"> <label>店铺</label><input
+						type="text" name="shopName" class="input-xlarge"> <label>地址</label><input
+						type="text" name="address" class="input-xlarge"> <label>备注</label><input
+						type="text" name="comments" class="input-xlarge"> <img
+						id="" src='' width='130'>
+					<div style="width: 100px; height: 100px;"
+						id="localImag">
+						<img src="" id="preview" alt="">
+					</div>
+					<label>身份证图片</label><input type='file' id='doc' name='picture'>
+					<input class="input-submit" type="submit" value="申请">
+				</form>
+			</div>
+
+		</div>
 
 	</div>
-	<div class="content">
-		<h1>商家状态</h1>
-	</div>
 	<script>
+		function setImagePreview(avalue) {
+			var docObj = document.getElementById("doc");
+			//img
+			var imgObjPreview = document.getElementById("preview");
+			//div
+			var divs = document.getElementById("localImag");
+			if (docObj.files && docObj.files[0]) {
+				//火狐下，直接设img属性
+				imgObjPreview.style.display = 'block';
+				imgObjPreview.style.width = '100px';
+				imgObjPreview.style.height = '100px';
+				//imgObjPreview.src = docObj.files[0].getAsDataURL();
+				//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+				imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+			} else {
+				//IE下，使用滤镜
+				docObj.select();
+				var imgSrc = document.selection.createRange().text;
+				var localImagId = document.getElementById("localImag");
+				//必须设置初始大小
+				localImagId.style.width = "100px";
+				localImagId.style.height = "100px";
+				//图片异常的捕捉，防止用户修改后缀来伪造图片
+				try {
+					localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)"
+					localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+				} catch (e) {
+					alert("您上传的图片格式不正确，请重新选择!");
+					return false;
+				}
+				imgObjPreview.style.display = 'none';
+				document.selection.empty();
+			}
+			return true;
+		}
+		document.getElementById('applyForm').style.display = 'none';
+		function render(data) {
+			let status = JSON.parse(data);
+			let num = status.checkStatus;
+			let myStatus = document.querySelector("#status");
+			let status_info = document.querySelector("#status_info");
+			let myCol = document.querySelector("#myCol");
+			let apply_btn = document.createElement("BUTTON");
+			let apply_txt = document.createTextNode("重新申請");
+			apply_btn.appendChild(apply_txt);
+			var btn = document.createElement("BUTTON");
+			if (num == "3") {
+				myStatus.style.color = "#699";
+				myStatus.textContent = "商家申请状态 :已通过";
+				status_info.textContent = "可以自由管理商店"
+			} else if (num == "0") {
+				myStatus.style.color = "#FFF68F";
+				myStatus.textContent = "商家申请状态 :审核中";
+				status_info.textContent = "必须等待审核通过"
+			} else if (num == "1") {
+				myStatus.style.color = "#FFD700";
+				myStatus.textContent = "商家申请状态 :驳回或未申请";
+				status_info.textContent = "可重新申请"
+				document.getElementById('applyForm').style.display = '';
+			} else if (num == "3") {
+				myStatus.style.color = "#FF6347";
+				myStatus.textContent = "商家申请状态 :不通过";
+				status_info.textContent = "不通过,无法使用店铺,且将无法再申请"
+			}
+		}
 		window.onload = function() {
 			showShopStatus = function() {
-				alert(666);
+				$("input[name='picture']").live('change', function() {
+					var file = $(this).val();
+					setImagePreview(file);
+				});
 				let url = "http://localhost:9090/typhoon_merchant/showShopStatusServlet";
 				let method = "GET";
 				let headers = [ {
@@ -89,13 +191,13 @@
 				}
 				///////////////////////////////////////////
 				function getData(method, url, data, headers) {
-					alert(234)
 					$.ajax({
 						type : method,
 						url : url,
-						dataType:"json"
+						dataType : "json",
 						success : function(data) {
-							alert(data)
+							let checkStatus = JSON.stringify(data)
+							render(checkStatus);
 						},
 						error : function(err) {
 							alert(JSON.stringify(err));
@@ -107,8 +209,10 @@
 
 				getData(method, url, null, headers);
 			}
-
+			showShopStatus();
 		}
 	</script>
 </body>
 </html>
+
+

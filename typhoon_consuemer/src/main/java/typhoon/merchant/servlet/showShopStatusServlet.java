@@ -49,7 +49,6 @@ public class showShopStatusServlet extends HttpServlet {
 //		out.print(result);
 		out.print("{\"checkStatus\":\"1\"}");
 //		System.out.println(result);
-//		System.out.println("{\"checkStatus\": 1}");
 		out.flush();
 	}
 

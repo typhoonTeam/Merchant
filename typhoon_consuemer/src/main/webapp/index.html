@@ -99,8 +99,9 @@
 					$.ajax({
 						type : method,
 						url : url,
-						dataType:"json"
+						dataType:"json",
 						success : function(data) {
+							alert("asd")
 							alert(data)
 						},
 						error : function(err) {
