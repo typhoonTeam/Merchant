@@ -54,8 +54,8 @@ public class UserLoginServlet extends HttpServlet {
 			} else if (checkStatus == 1) {
 				 request.getSession().setAttribute("status","通过");
 				request.getSession().setAttribute("checkStatus", checkStatus);
-				
-				request.getRequestDispatcher("welcome.jsp").forward(request, response);
+				response.sendRedirect("index.html");
+//				request.getRequestDispatcher("welcome.jsp").forward(request, response);
 				// System.out.println("通过");
 			} else if (checkStatus == 2) {// 驳回
 				 request.getSession().setAttribute("status","驳回");
