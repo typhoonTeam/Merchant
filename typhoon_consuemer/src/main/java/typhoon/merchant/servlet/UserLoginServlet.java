@@ -45,7 +45,8 @@ public class UserLoginServlet extends HttpServlet {
 			RegisterInfo registerInfo = registerInfoService.findRegisterInfoByShopId(user.getShopId());
 			request.getSession().setAttribute("user", user);
 			request.getSession().setAttribute("reg", registerInfo);
-			int checkStatus = userService.receiveCheckStatus(user.getShopId());
+//			int checkStatus = userService.receiveCheckStatus(user.getShopId());
+			int checkStatus = 1;
 			if (checkStatus == 0) {
 				 request.getSession().setAttribute("status","待审核");
 //				request.getRequestDispatcher("checking.jsp").forward(request, response);
