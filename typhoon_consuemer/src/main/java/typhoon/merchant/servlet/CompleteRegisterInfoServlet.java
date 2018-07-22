@@ -42,6 +42,7 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		User user = (User) request.getSession().getAttribute("user");
 		String shopId = user.getShopId();// id
 		FileUpload upload = new FileUpload(new DiskFileItemFactory());

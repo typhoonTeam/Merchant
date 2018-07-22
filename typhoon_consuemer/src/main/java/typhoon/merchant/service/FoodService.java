@@ -12,4 +12,6 @@ public interface FoodService {
 	public Food FindFoodById(int id);
 	public Food AddFood(HttpServletRequest request, String path,String shopId);
 	public void UpdateFood(HttpServletRequest request, String realPath, String shopId);
+	public void updateFood(Food food);
+	public void addFood(Food food);
 }

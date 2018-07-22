@@ -60,7 +60,10 @@ public class FoodServiceImpl implements FoodService {
 		Food food = foodDao.findFoodById(id);
 		return food;
 	}
-
+@Override
+public void updateFood(Food food) {
+	foodDao.updateFood(food);
+}
 	public void UpdateFood(HttpServletRequest request, String realPath, String shopId) {
 		FileUpload upload = new FileUpload(new DiskFileItemFactory());
 		List<FileItem> fileItems = null;
@@ -163,5 +166,11 @@ public class FoodServiceImpl implements FoodService {
 		System.out.println(food.toString());
 		foodDao.addFood(food);
 		return food;
+	}
+
+	@Override
+	public void addFood(Food food) {
+		foodDao.addFood(food);
+		
 	}
 }

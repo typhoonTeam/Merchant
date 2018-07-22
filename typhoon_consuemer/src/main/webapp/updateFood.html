@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Merchant Main</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css"
+          href="common/index_lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="common/index_lib/stylesheets/theme.css">
+    <link rel="stylesheet"
+          href="common/index_lib/font-awesome/css/font-awesome.css">
+    <script src="common/index_lib/jquery-1.7.2.min.js"
+            type="text/javascript"></script>
+    <script src="common/index_lib/bootstrap/js/bootstrap.js"></script>
+    <script src="common/jquery.form.js"></script>
+
+    <style type="text/css">
+        .brand {
+            font-family: georgia, serif;
+        }
+
+        .brand .first {
+            color: #ccc;
+            font-style: unset;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav pull-right">
+            <li id="fat-menu" class="dropdown"><a href="#" role="button"
+                                                  class="dropdown-toggle" data-toggle="dropdown"> <i
+                    class="icon-user"></i>名字
+            </a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#">我的信息</a></li>
+                    <li class="divider"></li>
+                    <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
+                    <li class="divider visible-phone"></li>
+                    <li><a tabindex="-1" href="sign-in.html">退出</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a class="brand" href="index.html"><span class="first">商家管理</span></a>
+    </div>
+</div>
+
+
+<div class="sidebar-nav">
+    <a href="#shop-menu" class="nav-header" data-toggle="collapse"></i>店铺操作</a>
+    <ul id="shop-menu" class="nav nav-list collapse in">
+        <li><a href="showShopStatus.html">店铺状态</a></li>
+        <li><a href="showRegisterInfo.html">查看注册信息</a></li>
+        <li><a href="applyAd.html">申请店铺广告</a></li>
+    </ul>
+    <a href="#food-menu" class="nav-header" data-toggle="collapse"></i>菜品操作</a>
+    <ul id="food-menu" class="nav nav-list collapse in">
+        <li><a href="showMyFoods.html">查看我的菜品</a></li>
+        <li><a href="addFood.html">添加菜品</a></li>
+    </ul>
+    <a href="#user-menu" class="nav-header" data-toggle="collapse"></i>个人操作</a>
+    <ul id="user-menu" class="nav nav-list collapse in">
+        <li><a href="updateInfo.html">修改个人信息</a></li>
+        <li><a href="updatePw.html">修改密码</a></li>
+    </ul>
+</div>
+<div class="content">
+    <h1>修改菜品信息</h1>
+    <form id="myForm" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="id" id = "id">
+        <hr>
+        菜品名:<input type="text" id="foodName" name = "foodName">
+        <hr>
+        价格:<input type="text" id="price" name = "price">
+        <hr>
+        原图片:<img id="prevImg" src="" width='130' >上傳新圖:<input
+            type="file" id="picture" name = "picture">
+        <hr>
+        信息:<input type="text" id="info" name = "info">
+        <hr>
+        状态:<input type="text" id="status" name = "status">
+        <hr>
+        <input type="button" onclick='updateFood()' value="提交修改"/>
+        <input type="button"  value="返回" onclick="javascript:window.location.href='showMyFoods.html' "/>
+    </form>
+</div>
+<script>
+    window.onload = function () {
+        function renderForm(data) {
+            $("#id").val(data.id)
+            $("#foodName").val(data.foodName)
+            $("#price").val(data.price)
+
+            $("#prevImg").attr("src", data.picture)
+            $("#info").val(data.info)
+            $("#status").val(data.status)
+        }
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i]
+                        .split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var param = GetRequest().id;
+        showFoodDetail = function () {
+            let url = "http://localhost:9090/typhoon_merchant/FoodDetailServlet?id="
+                + param;
+            let method = "GET";
+            let headers = [{
+                "key": "Content-Type",
+                "value": "application/json"
+            }];
+
+            ///////////////////////////////////////////
+            function renderTable(checkStatus) {
+            }
+
+            ///////////////////////////////////////////
+            function getData(method, url, data, headers) {
+                $.ajax({
+                    type: method,
+                    url: url,
+                    dataType: "json",
+                    success: function (data) {
+                        renderForm(data)
+                    },
+                    error: function (err) {
+                        alert(JSON.stringify(err));
+                    }
+                });
+
+            }
+
+            //////////////////////////////////////////
+
+            getData(method, url, null, headers);
+        }
+
+        updateFood = function() {
+            var options = {
+                url: "UpdatefoodServlet",
+                type: "post",
+                dataType: 'json',
+                success: function (data) {
+                	renderForm(data)
+                },
+                error: function (err) {
+                }
+            };
+            //jquery.form使用方式
+            $("#myForm").ajaxSubmit(options);
+            return false;
+        };
+        showFoodDetail();
+    }
+
+</script>
+</body>
+</html>
+
+

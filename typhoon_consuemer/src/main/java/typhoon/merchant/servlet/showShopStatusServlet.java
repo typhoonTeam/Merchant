@@ -30,7 +30,7 @@ public class showShopStatusServlet extends HttpServlet {
 		System.out.println("------------------------showShopStatusServlet------------------------------");
 		User user = (User) request.getSession().getAttribute("user");
 		// int checkStatus =
-		// userService.receiveCheckStatus(user.getShopId());//返回从A端获得的店铺状态
+		int checkStatus = userService.receiveCheckStatus(user.getShopId());//返回从A端获得的店铺状态
 		JsonOutUtil jsonOutUtil = new JsonOutUtil();
 		// jsonOutUtil.outJson(request, response,
 		// (Integer)checkStatus);//[{checkStatus:2}]
@@ -43,11 +43,12 @@ public class showShopStatusServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		// ObjectMapper mapper=new ObjectMapper();
 		// String jsonStr=mapper.writeValueAsString();
-		JsonParse<User> jsonUtil = new JsonParseByJackson<>();
-		String result = jsonUtil.parseObjectToJson(new User("fadsj", "kfsjd", "dfklsj"));
+//		JsonParse<User> jsonUtil = new JsonParseByJackson<>();
+//		String result = jsonUtil.parseObjectToJson(new User("fadsj", "kfsjd", "dfklsj"));
 		// String parseListToJson = jsonUtil.parseListToJson(new ArrayList<>());
 //		out.print(result);
-		out.print("{\"checkStatus\":\"1\"}");
+		System.out.println("{\"checkStatus\":\""+checkStatus+"\"}");
+		out.print("{\"checkStatus\":\""+checkStatus+"\"}");
 //		System.out.println(result);
 		out.flush();
 	}
