@@ -16,7 +16,7 @@ public class DeleteFoodServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+System.out.println("---------------------DeleteFoodServlet-------------------------");
 		String idString = (String) request.getParameter("food_id");
 		int id = Integer.parseInt(idString);
 		foodService.DeleteFood(id);

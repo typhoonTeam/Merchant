@@ -15,7 +15,7 @@
 <script src="common/index_lib/jquery-1.7.2.min.js"
 	type="text/javascript"></script>
 <script src="common/index_lib/bootstrap/js/bootstrap.js"></script>
-
+<script src="common/jquery.form.js"></script>
 <style type="text/css">
 .brand {
 	font-family: georgia, serif;
@@ -85,7 +85,7 @@
 			<div class="col-md-6" id="myCol">
 				<h1 id="status"></h1>
 				<h2 id="status_info"></h2>
-				<form type="hidden" id="applyForm" action="">
+				<form type="hidden" id="applyForm">
 					<label>工商号</label><input type="text" name="creditCode"
 						class="input-xlarge" /> <label>身份证</label><input type="text"
 						name="idCard" class="input-xlarge" /> <label>电话</label><input
@@ -101,7 +101,7 @@
 						<img src="" id="preview" alt="">
 					</div>
 					<label>身份证图片</label><input type='file' id='doc' name='picture'>
-					<input class="input-submit" type="submit" value="申请">
+					<input  type="button" onclick = "applyClick()" value="申请">
 				</form>
 			</div>
 
@@ -145,6 +145,23 @@
 			return true;
 		}
 		document.getElementById('applyForm').style.display = 'none';
+		function applyClick(){
+			alert("123")
+			var options = {
+	                url:"CompleteRegisterInfoServlet",
+	                type:"post",
+	                dataType: 'json',
+	                success: function(){
+	                    //alert("OK");
+	                },
+	                error : function(err) {
+	                	//alert(err);
+					}
+	            };
+	            //jquery.form使用方式
+	            $("#applyForm").ajaxSubmit(options);
+	            return false;
+		}
 		function render(data) {
 			let status = JSON.parse(data);
 			let num = status.checkStatus;
@@ -155,7 +172,7 @@
 			let apply_txt = document.createTextNode("重新申請");
 			apply_btn.appendChild(apply_txt);
 			var btn = document.createElement("BUTTON");
-			if (num == "3") {
+			if (num == "1") {
 				myStatus.style.color = "#699";
 				myStatus.textContent = "商家申请状态 :已通过";
 				status_info.textContent = "可以自由管理商店"
@@ -163,7 +180,7 @@
 				myStatus.style.color = "#FFF68F";
 				myStatus.textContent = "商家申请状态 :审核中";
 				status_info.textContent = "必须等待审核通过"
-			} else if (num == "1") {
+			} else if (num == "2") {
 				myStatus.style.color = "#FFD700";
 				myStatus.textContent = "商家申请状态 :驳回或未申请";
 				status_info.textContent = "可重新申请"
@@ -180,6 +197,7 @@
 					var file = $(this).val();
 					setImagePreview(file);
 				});
+				
 				let url = "http://localhost:9090/typhoon_merchant/showShopStatusServlet";
 				let method = "GET";
 				let headers = [ {
