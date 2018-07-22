@@ -84,11 +84,11 @@ public class ResturantDaoImpl implements ResturantDao{
 			try {
 				pst=con.prepareStatement(sql);
 				pst.setString(1, shopId);
-				pst.setString(2, "08");
-				pst.setString(3, "20");
-				pst.setString(4, "100.00");
-				pst.setString(5, "100.00");
-				pst.setString(6, "www.com.com");
+				pst.setString(2, "08:00");
+				pst.setString(3, "20:00");
+				pst.setString(4, "10.0");
+				pst.setString(5, "10.0");
+				pst.setString(6, "image/default.png");
 				pst.setString(7, "");
 				pst.setString(8, "0");
 				pst.setString(9, "");
