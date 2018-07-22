@@ -90,6 +90,8 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		System.out.println("receive :" + receive);
+		if(receive==null||receive.isEmpty())
+			return 2;
 		return Integer.parseInt(receive);
 	}
 
