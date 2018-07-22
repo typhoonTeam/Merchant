@@ -12,6 +12,13 @@
 		<servlet-class>typhoon.merchant.servlet.UserLoginServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ShowFoodsServletbyPage</servlet-name>
+		<display-name>ShowFoodsServletbyPage</display-name>
+		<description></description>
+		<servlet-class>typhoon.merchant.servlet.ShowFoodsServletbyPage</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>UserRegisterServlet</servlet-name>
 		<display-name>UserRegisterServlet</display-name>
 		<description></description>
@@ -116,6 +123,12 @@
 		<servlet-name>CompleteRegisterInfoServlet</servlet-name>
 		<url-pattern>/CompleteRegisterInfoServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ShowFoodsServletbyPage</servlet-name>
+		<url-pattern>/ShowFoodsServletbyPage</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>ShowRestaurantDetailServlet</servlet-name>
 		<url-pattern>/ShowRestaurantDetailServlet</url-pattern>

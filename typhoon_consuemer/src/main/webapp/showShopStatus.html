@@ -146,13 +146,12 @@
 		}
 		document.getElementById('applyForm').style.display = 'none';
 		function applyClick(){
-			alert("123")
 			var options = {
 	                url:"CompleteRegisterInfoServlet",
 	                type:"post",
 	                dataType: 'json',
 	                success: function(){
-	                    //alert("OK");
+	                	window.location.href='showShopStatus.html'
 	                },
 	                error : function(err) {
 	                	//alert(err);

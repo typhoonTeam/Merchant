@@ -90,9 +90,9 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		System.out.println("receive :" + receive);
-		if (receive == null || receive.length() == 0)
+		if (receive.equals("null")||receive == null || receive.length() == 0 || receive.isEmpty() || receive.equals(null)) {
 			return 2;
-		else {
+		} else {
 			return Integer.parseInt(receive);
 		}
 	}

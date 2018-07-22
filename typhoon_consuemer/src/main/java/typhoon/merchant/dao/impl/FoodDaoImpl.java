@@ -13,6 +13,7 @@ import typhoon.merchant.dao.FoodDao;
 import typhoon.merchant.pojo.Food;
 import typhoon.merchant.pojo.User;
 import typhoon.merchant.util.DBUtil;
+
 /**
  * 
  * @author GAOJO2
@@ -209,11 +210,62 @@ public class FoodDaoImpl implements FoodDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBUtil.close(con, pStatement, rs);
 		}
 		return food;
 	}
 
-	
+	@Override
+	public int findFoodCount(String shopId) {
+		String sql = "select count(*) from food where shop_id = ?";
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, shopId);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			pst = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(conn, pst, null);
+		}
+		return count;
+	}
+
+	@Override
+	public List<Food> getFoodByPage(int begin, int end, String shopId) {
+		String sql = "select * from(select A.*,ROWNUM RN FROM(SELECT * FROM Food where shop_id=?)A WHERE ROWNUM<=?)WHERE RN>?";
+		List<Food> foods = new ArrayList<Food>();
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Food food = null;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, shopId);
+			pst.setInt(2, end);
+			pst.setInt(3, begin);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				food = new Food(rs.getString("food_name"), Double.valueOf(rs.getString("price")),
+						rs.getString("picture"), rs.getString("info"), rs.getString("status"), rs.getString("shop_id"));
+				food.setId(Integer.valueOf(rs.getString("id")));
+				foods.add(food);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(conn, pst, rs);
+		}
+		return foods;
+	}
+
 }

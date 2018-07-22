@@ -19,6 +19,7 @@ import typhoon.merchant.dao.FoodDao;
 import typhoon.merchant.dao.impl.FoodDaoImpl;
 import typhoon.merchant.dao.impl.RegisterInfoDaoImpl;
 import typhoon.merchant.pojo.Food;
+import typhoon.merchant.pojo.Page;
 import typhoon.merchant.service.FoodService;
 import typhoon.merchant.util.ImgUtil;
 import typhoon.merchant.util.UUIDUtil;
@@ -30,6 +31,45 @@ public class FoodServiceImpl implements FoodService {
 
 	private FoodServiceImpl() {
 		initData();
+	}
+//
+//	public Page<Merchant> getNoCheckMerchantsByPage(int currentPage, int pageSize) {
+//		Page<Merchant> page=new Page<Merchant>();
+//		page.setCurrentPage(currentPage);
+//		page.setPageSize(pageSize);
+//		int totalCount=merchantDao.findNoCheckMerchantCount();
+//		page.setTotalCount(totalCount);
+//		int totalPage=0;
+//		if (totalCount%pageSize==0){
+//            totalPage=totalCount/pageSize;
+//        }else {
+//            totalPage=totalCount/pageSize+1;
+//        }
+//		page.setTotalPage(totalPage);
+//		int begin= (currentPage-1)*pageSize;
+//		List<Merchant> list=merchantDao.getNoCheckMerchantByPage(begin,begin+pageSize);
+//		page.setDataList(list);
+//		return page;
+//	}
+//	
+	@Override
+	public Page<Food> getFoodByPage(int currentPage, int pageSize,String shopId) {
+		Page<Food> foods=new Page<Food>();
+		foods.setCurrentPage(currentPage);
+		foods.setPageSize(pageSize);
+		int totalCount=foodDao.findFoodCount(shopId);
+		foods.setTotalCount(totalCount);
+		int totalPage=0;
+		if (totalCount%pageSize==0){
+            totalPage=totalCount/pageSize;
+        }else {
+            totalPage=totalCount/pageSize+1;
+        }
+		foods.setTotalPage(totalPage);
+		int begin= (currentPage-1)*pageSize;
+		List<Food> list=foodDao.getFoodByPage(begin,begin+pageSize,shopId);
+		foods.setDataList(list);
+		return foods;
 	}
 
 	public static FoodServiceImpl getInstance() {
@@ -60,10 +100,12 @@ public class FoodServiceImpl implements FoodService {
 		Food food = foodDao.findFoodById(id);
 		return food;
 	}
-@Override
-public void updateFood(Food food) {
-	foodDao.updateFood(food);
-}
+
+	@Override
+	public void updateFood(Food food) {
+		foodDao.updateFood(food);
+	}
+
 	public void UpdateFood(HttpServletRequest request, String realPath, String shopId) {
 		FileUpload upload = new FileUpload(new DiskFileItemFactory());
 		List<FileItem> fileItems = null;
@@ -150,7 +192,7 @@ public void updateFood(Food food) {
 					InputStream in = fileItem.getInputStream();
 					// picture = imgUtil.img2String(in);
 					byte[] buf = fileItem.get();
-					String fileName = UUIDUtil.uuid32()+fileItem.getName();
+					String fileName = UUIDUtil.uuid32() + fileItem.getName();
 					OutputStream out = new FileOutputStream(path + "/" + fileName);
 					picture = "img/" + fileName;
 					out.write(buf);
@@ -171,6 +213,6 @@ public void updateFood(Food food) {
 	@Override
 	public void addFood(Food food) {
 		foodDao.addFood(food);
-		
+
 	}
 }
