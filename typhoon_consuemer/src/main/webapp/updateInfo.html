@@ -89,13 +89,13 @@
 
             <br>
             <br>
-            配送范围  <input name="delivery" type="text" class="delivery"><span class="tip"></span><br>
-            配送费用<input name="deliFee" type="text" class="deliFee"><span class="tip"></span><br>
+            配送范围  <input name="delivery" type="number" class="delivery" step="5"> 公里
+            配送费用<input name="deliFee" type="number" class="deliFee" step="0.5">元
         </div>
 
         <br>
         图片 ： <img name="img1" width="150" height="150" class="img">
-        <input  name="picture" type="file" value="选择照片"/>
+        <input  name="picture" type="file" value="选择照片"accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
 
         <br>
         <br>
@@ -109,6 +109,11 @@
 	</div>
 	<script>
 		window.onload = function() {
+			let foodNameReg=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+	            //配送范围
+	        let deliveryReg=/^[a-zA-Z][a-zA-Z0-9_]{5,30}$/;
+	            //同foodPriceReg
+			
 			let url="http://localhost:9090/typhoon_merchant/ShowRestaurantDetailServlet";
 	        let headers=[{"key":"Content-Type","value":"application/json"}];
 	        function render(data) {
