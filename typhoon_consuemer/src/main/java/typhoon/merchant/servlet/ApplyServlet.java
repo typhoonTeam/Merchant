@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.sql.Date;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class ApplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("------------------------ApplyServlet------------------------------");
 		HttpSession sen = request.getSession();
 		User user =(User) sen.getAttribute("user");
 		String shopId = user.getShopId();
@@ -73,7 +75,7 @@ public class ApplyServlet extends HttpServlet {
 					String fileName = UUIDUtil.uuid32()+fileItem.getName();;
 					OutputStream out = new FileOutputStream(
 							this.getServletContext().getRealPath("/img") + "/" + fileName);
-					System.out.println("获取到图片的储存路径："+this.getServletContext().getRealPath("/img") + "/" + fileName);
+			//		System.out.println("èŽ·å�–åˆ°å›¾ç‰‡çš„å‚¨å­˜è·¯å¾„ï¼š"+this.getServletContext().getRealPath("/img") + "/" + fileName);
 					picture2 = "img/" + fileName;
 					out.write(buf);
 					out.close();
@@ -87,6 +89,8 @@ public class ApplyServlet extends HttpServlet {
 		Advertisement ad2 = new Advertisement(shopId, shopName, picture2, slogan,price, 0, time);
 	    service.addAd(ad2);
 		service.sendAdInfoToAdmin(ad1);
-		request.getRequestDispatcher("ShowFoodsServlet").forward(request, response);
+		Writer writer = response.getWriter();
+		writer.write("{\"status\":\"OK\"}");
+		//request.getRequestDispatcher("ShowFoodsServlet").forward(request, response);
     }
 }
