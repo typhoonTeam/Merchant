@@ -15,7 +15,7 @@
 <script src="common/index_lib/jquery-1.7.2.min.js"
 	type="text/javascript"></script>
 <script src="common/index_lib/bootstrap/js/bootstrap.js"></script>
-<script src="common/jquery.form.js"></script>
+
 <style type="text/css">
 .brand {
 	font-family: georgia, serif;
@@ -79,83 +79,58 @@
 		</ul>
 	</div>
 	<div class="content" id="content">
-		<h1><strong><p class="text-center">商家基本信息</p></strong></h1>
-    <form method="post" enctype="multipart/form-data" id="jvForm">
-        <div >
-            <br>
-            <br>
-            开业时间  <input name="openTime" type="time" class="openTime">
-            休业时间  <input name="closeTime" type="time" class="closeTime">
-
-            <br>
-            <br>
-            配送范围  <input name="delivery" type="text" class="delivery"><span class="tip"></span><br>
-            配送费用<input name="deliFee" type="text" class="deliFee"><span class="tip"></span><br>
-        </div>
-
-        <br>
-        图片 ： <img name="img1" width="150" height="150" class="img">
-        <input  name="picture" type="file" value="选择照片"/>
-
-        <br>
-        <br>
-        标语  <input name="slogan" type="text" style="width: 300px;height: 150px" class="slogan">
-        备注  <input name="comments" type="text" style="width: 300px;height: 150px" class="comments">
-        <br>
-        <br>
-        <button id="commit" onclick="uploadData()">保存</Button>
-    </form>
-	
+	<!--<a href="welcome.jsp" >返回首页</a>-->
+	<hr>
+	shopId :<p class="shopId"></p><hr>
+	creditCode :<p class="creditCode"></p><hr>
+	idCard :<p class="idCard"></p><hr>
+	corporateName :<p class="corporateName"></p><hr>
+	picture :<img src="" width="130" class="picture"><hr>
+	phone :<p class="phone"></p><hr>
+	shopName :<p class="shopName"></p><hr>
+	address :<p class="address"></p><hr>
+	comments :<p class="comments"></p><hr>
 	</div>
 	<script>
 		window.onload = function() {
-			let url="http://localhost:9090/typhoon_merchant/ShowRestaurantDetailServlet";
-	        let headers=[{"key":"Content-Type","value":"application/json"}];
-	        function render(data) {
-	            $(".openTime").val(data.openTime);
-	            $(".closeTime").val(data.closeTime);
-	            $(".delivery").val(data.delivery);
-	            $(".deliFee").val(data.deliFee);
-	            $(".img").attr("src",data.picture);
-	            $(".slogan").val(data.slogan);
-	            $(".comments").val(data.comments);
-	        };
+				let url = "http://localhost:9090/typhoon_merchant/ShowRestaurantInfoServlet";
+				let method = "GET";
+				let headers = [ {
+					"key" : "Content-Type",
+					"value" : "application/json"
+				} ];
+				///////////////////////////////////////////
+				function render(data) {
+					$(".shopId").text(data.shopId);
+					$(".creditCode").text(data.creditCode);
+					$(".idCard").text(data.idCard);
+					$(".corporateName").text(data.corporateName);
+					$(".picture").attr("src",data.picture);
+					$(".phone").text(data.phone);
+					$(".shopName").text(data.shopName);
+					$(".address").text(data.address);
+					$(".comments").text(data.comments);
+					
+				}
+				///////////////////////////////////////////
+				function getData(method, url, data, headers) {
+					$.ajax({
+						type : method,
+						url : url,
+						dataType:"json",
+						success : function(data) {
+							render(data);
+						},
+						error : function(err) {
+							alert(err);
+						}
+					});
 
-	        function getData(method,url,data,headers) {
-	            $.ajax({
-	                type: method,
-	                url: url,
-	                dataType:"json",
-	                success: function(data){
-	                    render(data);
-	                },
-	                error : function(err) {
-						alert(err);
-					}
-	            });
-	        };
+				}
+				//////////////////////////////////////////
 
-	       
-
-	        getData("GET",url,null,headers);
-	         
+				getData(method, url, null, headers);
 		}
-		 function uploadData() {
-	            var options = {
-	                url:"UpdateRestaurantServlet",
-	                type:"post",
-	                dataType: 'json',
-	                success: function(){
-	                    //alert("OK");
-	                },
-	                error : function(err) {
-	                	//alert(err);
-					}
-	            };
-	            //jquery.form使用方式
-	            $("#jvForm").ajaxSubmit(options);
-	            return false;
-	        };
 	</script>
 </body>
 </html>
