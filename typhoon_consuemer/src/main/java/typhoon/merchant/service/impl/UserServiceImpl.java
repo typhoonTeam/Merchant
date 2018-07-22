@@ -90,16 +90,18 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		System.out.println("receive :" + receive);
-		if(receive==null||receive.isEmpty())
+		if (receive == null || receive.length() == 0)
 			return 2;
-		return Integer.parseInt(receive);
+		else {
+			return Integer.parseInt(receive);
+		}
 	}
 
 	public User findUser(String username) {
 		User user = userDao.findUserByUsername(username);
 		return user;
 	}
-	
+
 	@Override
 	public int updatePassword(User user) {
 		return userDao.updatePassword(user);
