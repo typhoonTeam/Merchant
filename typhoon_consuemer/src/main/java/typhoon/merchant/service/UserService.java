@@ -9,4 +9,5 @@ public interface UserService {
 	public int addUser(User user);
 	public int receiveCheckStatus(String shop_id);
 	public int sendRegisterInfoToAdmin(RegisterInfo info);
+	public int updatePassword(User user);
 }

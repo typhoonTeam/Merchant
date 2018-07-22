@@ -8,4 +8,6 @@ public interface UserDao {
 	public User findUserByUsername(String name);
 
 	public int updateUser(User user);
+	
+	public int updatePassword(User user);
 }

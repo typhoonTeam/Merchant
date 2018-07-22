@@ -53,17 +53,17 @@ public class UserServiceImpl implements UserService {
 			System.out.println("this user can not be found!");
 			return 0;
 		} else if (user.getPassword().equals(password)) {
-			System.out.println("密码正确！");
+			System.out.println("å¯†ç �æ­£ç¡®ï¼�");
 			return 1;
 		} else {
-			System.out.println("密码错误！");
+			System.out.println("å¯†ç �é”™è¯¯ï¼�");
 			return -1;
 		}
 	}
 
 	public int addUser(User user) {
 		if (findUser(user.getUsername()) != null) {
-			System.out.println("该用户名已被注册");
+			System.out.println("è¯¥ç”¨æˆ·å��å·²è¢«æ³¨å†Œ");
 			return 0;
 		} else {
 			userDao.addUser(user);
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
 	public int receiveCheckStatus(String shop_id) {
 		System.out.println(shop_id);
-		// 返回的int类型对应的结果
+		// è¿”å›žçš„intç±»åž‹å¯¹åº”çš„ç»“æžœ
 		// 0 :
 		// 1 :
 		// 2 :
@@ -96,5 +96,10 @@ public class UserServiceImpl implements UserService {
 	public User findUser(String username) {
 		User user = userDao.findUserByUsername(username);
 		return user;
+	}
+	
+	@Override
+	public int updatePassword(User user) {
+		return userDao.updatePassword(user);
 	}
 }
