@@ -47,14 +47,19 @@ public class UpdatePasswordServlet extends HttpServlet {
 		String newPwd = null;
 		FileUpload upload = new FileUpload(new DiskFileItemFactory());
 		List<FileItem> fileItems = null;
-		
+		boolean flag = false;
 		try {
 			fileItems = upload.parseRequest(new ServletRequestContext(request));
 			for(FileItem fileItem:fileItems) {
 				if(fileItem.isFormField()) {
 					if (fileItem.getFieldName().equals("newPassword")) {
 						newPwd = fileItem.getString();
-					} 
+					}
+				    if(fileItem.getFieldName().equals("password")) {
+				    	if(user.getPassword().equals(fileItem.getString())) {
+				    		flag = true;
+				    	}
+				    }
 				}else {
 				}
 			}
@@ -62,13 +67,18 @@ public class UpdatePasswordServlet extends HttpServlet {
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-		impl.updatePassword(new User(shopId,userName,newPwd));
 		response.setContentType("text/html;charset=UTF-8");
 		response.setHeader("Pragma","No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", -10);
 		PrintWriter out=response.getWriter();
-		out.print("{\"status\":\"OK\"}");
+		if(flag == true) {
+			impl.updatePassword(new User(shopId,userName,newPwd));
+			out.print("{\"status\":\"OK\"}");
+		}else {
+			out.print("{\"status\":\"FAIL\"}");
+		}
+		
 		out.close();
 	}
 

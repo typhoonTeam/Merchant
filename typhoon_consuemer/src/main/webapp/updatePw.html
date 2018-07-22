@@ -83,75 +83,16 @@
     <form method="post" enctype="multipart/form-data" id="jvForm">
             <br>
             <br>
-            旧密码：  <input name="password" type="text" class="password"><span class="tip"></span>
+            旧密码：  <input name="password" type="text" class="password">&nbsp;<span class="tip"></span>
             <br>
-            新密码:  <input name="newPassword" type="password" class="newPassword"><span class="tip"></span>
+            新密码:  <input name="newPassword" type="password" class="newPassword">&nbsp;<span class="tip"></span>
             <br>
-            确认密码:  <input name="comPassword" type="password" class="comPassword"><span class="tip"></span>
+            确认密码:  <input name="comPassword" type="password" class="comPassword">&nbsp;<span class="tip"></span>
             <br>
-        <button id="commit" onclick="uploadData()">保存</Button>
+        <input type = "submit" id="commit" value="保存">
     </form>
 	</div>
-	<script>
-		window.onload = function() {
-			let pswReg=/^(?![A-Z]+$)(?![a-z]+$)(?!\d+$)\S{6,}$/;
-	        let errors=new Map();
-			
-	        let headers=[{"key":"Content-Type","value":"application/json"}];
-	        function render(data) {
-	        }; 
-	        function validate(message) {
-	            errors.clear();
-	            if(message.psw1){
-	                if(!pswReg.test(message.psw1)){errors.set('psw1','数字/大写/小写字母,至少两种组成，长度不小于6');}
-	            }
-	            if(message.psw2){
-	                if(!pswReg.test(message.psw2)){errors.set('psw2','数字/大写/小写字母,至少两种组成，长度不小于6');}
-	            }
-	            if(message.psw3){
-	                if(!pswReg.test(message.psw3)){errors.set('psw3','数字/大写/小写字母,至少两种组成，长度不小于6');}
-	            }
-	        }
-	        function renderError(errors) {
-	            let pswSpan1=document.querySelector("#jvForm input[name=password]").nextElementSibling;
-	            pswSpan1.textContent=errors.get('psw1');
-	            let pswSpan2=document.querySelector("#jvForm input[name=newPassword]").nextElementSibling;
-	            pswSpan2.textContent=errors.get('psw2');
-	            let pswSpan3=document.querySelector("#jvForm input[name=comPassword]").nextElementSibling;
-	            pswSpan3.textContent=errors.get('psw3');
-	        }
-	        document.querySelector("#jvForm").addEventListener("change",function (e) {
-	            e.preventDefault();
-	            let psw1=document.querySelector("#jvForm input[name=password]").value;
-	            let psw2=document.querySelector("#jvForm input[name=newPassword]").value;
-	            let psw3=document.querySelector("#jvForm input[name=comPassword]").value;
-	            let message={
-	                psw1:psw1,
-	                psw2:psw2,
-	                psw3:psw3
-	            };
-	            validate(message);
-	            renderError(errors);
-	        })
-		}
-		 function uploadData() {
-			 alert("asdasd");
-	            var options = {
-	                url:"UpdatePasswordServlet",
-	                type:"post",
-	                dataType: 'json',
-	                success: function(){
-	                    alert("OK");
-	                },
-	                error : function(err) {
-	                	//alert(err);
-					}
-	            };
-	            //jquery.form使用方式
-	             $("#jvForm").ajaxSubmit(options);
-	            return false;
-	        };
-	</script>
+	<script type="text/javascript" src="js/updatePw.js"></script>
 </body>
 </html>
 
