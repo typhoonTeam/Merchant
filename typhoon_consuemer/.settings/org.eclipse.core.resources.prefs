@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java/typhoon/merchant/pojo/Resturant.java=UTF-8
+encoding//src/main/java/typhoon/merchant/service/impl/UserServiceImpl.java=UTF-8
+encoding//src/main/java/typhoon/merchant/servlet/ApplyServlet.java=UTF-8
 encoding//src/main/webapp/CompleteRegisterInfo.jsp=UTF-8
 encoding//src/main/webapp/login.jsp=UTF-8
 encoding//src/main/webapp/register.jsp=UTF-8
