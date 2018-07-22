@@ -73,7 +73,6 @@ public class UserServiceImpl implements UserService {
 
 	public int receiveCheckStatus(String shop_id) {
 		System.out.println(shop_id);
-		// è¿”å›žçš„intç±»åž‹å¯¹åº”çš„ç»“æžœ
 		// 0 :
 		// 1 :
 		// 2 :
@@ -90,6 +89,8 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		System.out.println("receive :" + receive);
+		if(receive==null||receive.isEmpty())
+			return 2;
 		return Integer.parseInt(receive);
 	}
 
