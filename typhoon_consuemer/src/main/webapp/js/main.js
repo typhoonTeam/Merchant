@@ -50,7 +50,7 @@ $(function() {
 	$("#register_btn").click(function() {
 		$("#register_form").css("display", "block");
 		$("#login_form").css("display", "none");
-        $("login_form").submit();
+        $("register_form").submit();
 	});
 	$("#back_btn").click(function() {
 		$("#register_form").css("display", "none");

@@ -85,9 +85,11 @@
         <br>
         时间 ： <input type="date" name="time" />
         <br>
-        价格 ： <input type="text" name="price" />
+        
+        价格 ： <input type="number" name="price" step="10"/> 元
+        
         <br>
-        <img class="imgView" width="150px" height="150px" src=""><input type="file" name="picture" value="选择图片"/>
+        <img class="imgView" width="150px" height="150px" src=""><input type="file" name="picture" value="选择图片" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
         <br>
         <button id="commit" onclick="uploadData()">发送</button>
     </form>

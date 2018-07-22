@@ -22,6 +22,7 @@ public class UserRegisterServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("------------------------UserRegisterServlet------------------------------");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		System.out.println(username + "\t" + password);
@@ -30,11 +31,12 @@ public class UserRegisterServlet extends HttpServlet {
 		int adduserStatus = userService.addUser(user);
 		if (adduserStatus == 0) {
 			response.getWriter().print(
-					"<script language='javascript'>alert('this username has be registered');window.location.href='register.jsp';</script>");
+					"<script language='javascript'>alert('this username has be registered');window.location.href='login.html';</script>");
 			// request.getRequestDispatcher("register.jsp").forward(request, response);
 		} else {
 			request.getSession().setAttribute("user", user);
-			request.getRequestDispatcher("CompleteRegisterInfo.jsp").forward(request, response);
+			response.sendRedirect("index.html");
+			//request.getRequestDispatcher("CompleteRegisterInfo.jsp").forward(request, response);
 		}
 		// doGet(request, response);
 	}
