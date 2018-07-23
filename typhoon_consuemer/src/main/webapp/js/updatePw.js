@@ -8,13 +8,19 @@ window.onload = function() {
     function validate(message) {
         errors.clear();
         if(message.psw1){
-            if(!pswReg.test(message.psw1)){errors.set('psw1','数字/大写/小写字母,至少两种组成，长度不小于6');}
+            if(!pswReg.test(message.psw1)){errors.set('psw1','数字/大写/小写字母,至少两种组成，长度不小于6');}else{
+            	errors.set('psw1','OK');
+            }
         }
         if(message.psw2){
-            if(!pswReg.test(message.psw2)){errors.set('psw2','数字/大写/小写字母,至少两种组成，长度不小于6');}
+            if(!pswReg.test(message.psw2)){errors.set('psw2','数字/大写/小写字母,至少两种组成，长度不小于6');}else{
+            	errors.set('psw2','OK');
+                }
         }
         if(message.psw3){
-            if(!pswReg.test(message.psw3)){errors.set('psw3','数字/大写/小写字母,至少两种组成，长度不小于6');}
+            if(!pswReg.test(message.psw3)){errors.set('psw3','数字/大写/小写字母,至少两种组成，长度不小于6');}else{
+            	errors.set('psw3','OK');
+                }
         }
     }
     function renderError(errors) {
@@ -40,23 +46,32 @@ window.onload = function() {
     })
 
     $("#commit").click(function(){
-//    	if(!errors){
-//    		alert("OK")
-//    	}else{
-//    		alert("NO");
-//    	}
-        var options = {
-            url:"UpdatePasswordServlet",
-            type:"post",
-            dataType: 'json',
-            success: function(data){
-                //alert(data);
-            },
-            error : function(err) {
-                //alert(err);
-            }
-        };
-        $("#jvForm").ajaxSubmit(options);
-        return false;
+        let flag = true;
+        errors.forEach(function(value,key,errors){  
+        	if(value!="OK") flag =false;
+        })
+        if(flag==true){
+
+        	if($(".newPassword").val() == $(".comPassword").val()){
+        		  var options = {
+                      url:"UpdatePasswordServlet",
+                      type:"post",
+                      dataType: 'json',
+                      success: function(data){
+                          //alert(data);
+                      },
+                      error : function(err) {
+                          alert("密码错误！");
+                      }
+                  };
+                  $("#jvForm").ajaxSubmit(options);
+                  return false;
+        	}else{
+        		alert("两次输入的密码一致！");
+        	}       	
+        }else{
+        	alert("请输入正确格式！");
+        }
+      
     })
 }
