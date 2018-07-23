@@ -75,8 +75,10 @@ public class UpdatePasswordServlet extends HttpServlet {
 		if(flag == true) {
 			impl.updatePassword(new User(shopId,userName,newPwd));
 			out.print("{\"status\":\"OK\"}");
+		//	System.out.println("OKOK...................");
 		}else {
 			out.print("{\"status\":\"FAIL\"}");
+		//	System.out.println("fail...................");
 		}
 		
 		out.close();
