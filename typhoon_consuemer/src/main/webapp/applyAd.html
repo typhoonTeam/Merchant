@@ -79,21 +79,36 @@
 		</ul>
 	</div>
 	<div class="content" id="content">
-		<h1><strong><p class="text-center">发送广告推送</p></strong></h1>
-    <form method="post"  enctype="multipart/form-data" id="jvForm">
-        标语 ：<input type="text" name="slogan" />
+		 <div class="container offset4">
         <br>
-        时间 ： <input type="date" name="time" />
         <br>
-        
-        价格 ： <input type="number" name="price" step="10"/> 元
-        
         <br>
-        <img class="imgView" width="150px" height="150px" src=""><input type="file" name="picture" value="选择图片" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
         <br>
-        <button id="commit" onclick="uploadData()">发送</button>
-    </form>
-	
+        <br>
+        <h1><strong><p class="text-center">发送广告推送</p></strong></h1>
+        <br>
+        <br>
+        <form method="post"  enctype="multipart/form-data" id="jvForm">
+            <label>时间</label>
+            <input type="date" name="time" class="input-xlarge"/>
+            <br>
+
+            <label>价格</label>
+            <input type="number" name="price" step="10" class="input-xlarge"/> 元
+
+            <label>标语</label>
+            <input type="text" name="slogan" class="input-xlarge"  style="width: 270px;height: 120px"/>
+            <br>
+            <br>
+            <img class="imgView" width="150px" height="150px" src=""><input type="file" name="picture" value="选择图片" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
+            <br>
+            <br>
+            <div style="width: 155px;margin-left: 130px" class="offset">
+                <button id="commit" onclick="uploadData()" class="btn  btn-block">发送</button>
+            </div>
+
+        </form>
+    </div>
 	</div>
 	<script type="text/javascript" src="js/applyAd.js"></script>
 </body>
