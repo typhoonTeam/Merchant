@@ -107,58 +107,7 @@
     </form>
 	
 	</div>
-	<script>
-		window.onload = function() {
-			let foodNameReg=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
-	            //配送范围
-	        let deliveryReg=/^[a-zA-Z][a-zA-Z0-9_]{5,30}$/;
-	            //同foodPriceReg
-			
-			let url="http://localhost:9090/typhoon_merchant/ShowRestaurantDetailServlet";
-	        let headers=[{"key":"Content-Type","value":"application/json"}];
-	        function render(data) {
-	            $(".openTime").val(data.openTime);
-	            $(".closeTime").val(data.closeTime);
-	            $(".delivery").val(data.delivery);
-	            $(".deliFee").val(data.deliFee);
-	            $(".img").attr("src",data.picture);
-	            $(".slogan").val(data.slogan);
-	            $(".comments").val(data.comments);
-	        };
-
-	        function getData(method,url,data,headers) {
-	            $.ajax({
-	                type: method,
-	                url: url,
-	                dataType:"json",
-	                success: function(data){
-	                    render(data);
-	                },
-	                error : function(err) {
-						alert(err);
-					}
-	            });
-	        };
-	        getData("GET",url,null,headers);
-	         
-		}
-		 function uploadData() {
-	            var options = {
-	                url:"UpdateRestaurantServlet",
-	                type:"post",
-	                dataType: 'json',
-	                success: function(){
-	                    //alert("OK");
-	                },
-	                error : function(err) {
-	                	//alert(err);
-					}
-	            };
-	            //jquery.form使用方式
-	            $("#jvForm").ajaxSubmit(options);
-	            return false;
-	        };
-	</script>
+	<script type="text/javascript" src="js/updateInfo.js"></script>
 </body>
 </html>
 
