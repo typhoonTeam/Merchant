@@ -101,6 +101,7 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 				shopName, address, comments);
 		System.out.println(registerInfo1.toString());
 		System.out.println(registerInfo2.toString());
+		response.sendRedirect("index.html");
 		userService.sendRegisterInfoToAdmin(registerInfo1);//发给admin
 		registerInfoService.addRegisterInfo(registerInfo2);//发给DB
 		resturantService.addDefaultResturant(shopId);

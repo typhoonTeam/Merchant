@@ -86,21 +86,18 @@
 				<h1 id="status"></h1>
 				<h2 id="status_info"></h2>
 				<form type="hidden" id="applyForm">
-					<label>工商号</label><input type="text" name="creditCode"
-						class="input-xlarge" /> <label>身份证</label><input type="text"
-						name="idCard" class="input-xlarge" /> <label>电话</label><input
-						type="text" name="phone" class="input-xlarge" /> <label>Username</label>
-					<input type="text" value="" class="input-xlarge"> <label>法人名</label><input
-						type="text" name="corporateName" class="input-xlarge"> <label>店铺</label><input
-						type="text" name="shopName" class="input-xlarge"> <label>地址</label><input
-						type="text" name="address" class="input-xlarge"> <label>备注</label><input
-						type="text" name="comments" class="input-xlarge"> <img
-						id="" src='' width='130'>
-					<div style="width: 100px; height: 100px;"
-						id="localImag">
+					<label>工商号</label><input type="text" id="creditCode" name="creditCode"class="input-xlarge" /><span></span>
+					 <label>身份证</label><input type="text" id="idCard"	name="idCard" class="input-xlarge" /> <span></span>
+					 <label>电话</label><input type="text" id="phone" name="phone" class="input-xlarge" /> <span></span>
+					 <label>法人名</label><input	type="text"id="corporateName" name="corporateName" class="input-xlarge"> <span></span>
+					 <label>店铺</label><input type="text" id="shopName" name="shopName" class="input-xlarge"><span></span>
+					  <label>地址</label><input type="text" id="address" name="address" class="input-xlarge"><span></span>
+					   <label>备注</label><input type="text" id="comments" name="comments" class="input-xlarge"><span></span>
+					    <img id="" src='' width='130'>
+					<div style="width: 100px; height: 100px;" id="localImag">
 						<img src="" id="preview" alt="">
 					</div>
-					<label>身份证图片</label><input type='file' id='doc' name='picture'>
+					<label>身份证图片</label><input type='file' id='doc' name='picture'><span></span>
 					<input  type="button" onclick = "applyClick()" value="申请">
 				</form>
 			</div>
@@ -146,12 +143,21 @@
 		}
 		document.getElementById('applyForm').style.display = 'none';
 		function applyClick(){
+			let creditCode=document.querySelector("#applyForm input[name=creditCode]").value;
+			let idCard=document.querySelector("#applyForm input[name=idCard]").value;
+			let phone=document.querySelector("#applyForm input[name=phone]").value;
+			let corporateName=document.querySelector("#applyForm input[name=corporateName]").value;
+			let shopName=document.querySelector("#applyForm input[name=shopName]").value;
+			let address=document.querySelector("#applyForm input[name=address]").value;
+			let comments=document.querySelector("#applyForm input[name=comments]").value;
+			let picture=document.querySelector("#applyForm input[name=picture]").value;
+					   if(creditCode&&idCard&&phone&&corporateName&&shopName&&address&&comments&&picture){
 			var options = {
 	                url:"CompleteRegisterInfoServlet",
 	                type:"post",
 	                dataType: 'json',
 	                success: function(){
-	                	render(data)
+	                	showShopStatus()
 	                },
 	                error : function(err) {
 	                	//alert(err);
@@ -160,7 +166,10 @@
 	            };
 	            //jquery.form使用方式
 	            $("#applyForm").ajaxSubmit(options);
-	            return false;
+	            return false;}
+					   else{
+						   alert("你有信息为空！")
+					   }
 		}
 		function render(data) {
 			let status = JSON.parse(data);
@@ -192,6 +201,39 @@
 			}
 		}
 		window.onload = function() {
+			
+
+			let nameReg=/^[a-zA-Z][a-zA-Z0-9_]{3,15}$/;
+			let priceReg=/^[1-9]\d?(\.(\d)*)?$/;
+			let errors=new Map();
+			
+			function validate(message) {
+	            errors.clear();
+	           // if(message.foodName){
+	             //   if(!nameReg.test(message.foodName)){errors.set('foodName','name error.');}
+	           // }
+	            if(message.price){
+	                if(!priceReg.test(message.price)){errors.set('price','price error.');}
+	            }
+			}
+			
+		 	function renderError(errors) {
+		 		let foodNameSpan=document.querySelector("#applyForm input[name=foodName]").nextElementSibling;
+		 		foodNameSpan.textContent=errors.get('foodName');
+
+		 		let priceSpan=document.querySelector("#applyForm input[name=price]").nextElementSibling;
+		 		priceSpan.textContent=errors.get('price');
+			}
+		 	
+		 	document.querySelector("#applyForm").addEventListener("change",function (e) {
+		 		let foodName=document.querySelector("#applyForm input[name=foodName]").value;
+		 		let price=document.querySelector("#applyForm input[name=price]").value;
+		 		let message={foodName:foodName,price:price};
+		 		validate(message);
+		 		renderError(errors);
+		 		
+		 	})
+			
 			showShopStatus = function() {
 				$("input[name='picture']").live('change', function() {
 					var file = $(this).val();

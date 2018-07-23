@@ -90,11 +90,18 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		System.out.println("receive :" + receive);
-		if (receive.equals("null")||receive == null || receive.length() == 0 || receive.isEmpty() || receive.equals(null)) {
-			return 2;
-		} else {
+		
+		try {
 			return Integer.parseInt(receive);
+		}catch (Exception e) {
+			return 2;
 		}
+		
+//		if (receive.equals("null")||receive == null || receive.length() == 0 || receive.isEmpty() || receive.equals(null)) {
+//			return 2;
+//		} else {
+//			return Integer.parseInt(receive);
+//		}
 	}
 
 	public User findUser(String username) {
