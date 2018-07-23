@@ -10,7 +10,7 @@ function uploadData() {
         type:"post",
         dataType: 'json',
         success: function(){
-            alert("OK");
+            alert("广告已经发送！");
         },
         error : function(err) {
             //alert(err);

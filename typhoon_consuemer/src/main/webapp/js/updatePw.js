@@ -57,10 +57,13 @@ window.onload = function() {
                       url:"UpdatePasswordServlet",
                       type:"post",
                       dataType: 'json',
-                      success: function(data){
-                          //alert(data);
+                      success: function(){
+                          alert("修改成功！");
+                          $(".password").val("");
+                          $(".newPassword").val("");
+                          $(".comPassword").val("");
                       },
-                      error : function(err) {
+                      error : function() {
                           alert("密码错误！");
                       }
                   };
