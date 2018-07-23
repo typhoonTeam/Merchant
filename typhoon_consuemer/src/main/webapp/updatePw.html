@@ -79,18 +79,30 @@
 		</ul>
 	</div>
 	<div class="content" id="content">
-		 <h1><strong><p class="text-center">修改密码</p></strong></h1>
-    <form method="post" enctype="multipart/form-data" id="jvForm">
+		 <div class="container offset3">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1><strong><p class="text-center">修改密码</p></strong></h1>
+        <form method="post" enctype="multipart/form-data" id="jvForm">
             <br>
             <br>
-            旧密码：  <input name="password" type="text" class="password">&nbsp;<span class="tip"></span>
+            <label>密码</label>
+            <input name="password" type="text" class="password input-xlarge ">&nbsp;<small class="tip"></small>
             <br>
-            新密码:  <input name="newPassword" type="password" class="newPassword">&nbsp;<span class="tip"></span>
+            <label>新密码</label>
+            <input name="newPassword" type="password" class="newPassword input-xlarge ">&nbsp;<small class="tip"></small>
+            <label>确认密码</label>
+            <input name="comPassword" type="password" class="comPassword input-xlarge">&nbsp;<small class="tip"></small>
             <br>
-            确认密码:  <input name="comPassword" type="password" class="comPassword">&nbsp;<span class="tip"></span>
-            <br>
-        <input type = "submit" id="commit" value="保存">
-    </form>
+            <div style="width: 155px" class="offset1">
+                <input type = "submit" id="commit" value="保存" class="btn  btn-block">
+            </div>
+
+        </form>
+    </div>
 	</div>
 	<script type="text/javascript" src="js/updatePw.js"></script>
 </body>
