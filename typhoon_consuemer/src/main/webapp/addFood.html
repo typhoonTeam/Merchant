@@ -73,15 +73,15 @@
 		<form action="AddfoodServlet" id = "myForm" enctype="multipart/form-data"
 		method="post">
 		<hr>
-		菜品名:<input type="text" name="foodName">
+		菜品名:<input type="text" name="foodName"><span name="fntip"></span>
 		<hr>
-		价格:<input type="text" name="price">
+		价格:<input type="text" name="price"><span name="pricetip"></span>
 		<hr>
-		图片:<input type="file" name="picture">
+		图片:<input type="file" name="picture" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"><span></span>
 		<hr>
-		信息:<input type="text" name="info">
+		信息:<input type="text" name="info"><span></span>
 		<hr>
-		状态:<input type="text" name="status">
+		状态:<input type="text" name="status"><span ></span>
 		<hr>
 		<input type="button"  value="添加" onclick="uploadFood()"/>
 <input type="button"  value="返回" onclick="javascript:window.location.href='showMyFoods.html' "/>
@@ -89,8 +89,37 @@
 	</div>
 	<script>
 		window.onload = function() {
+			let nameReg=/^[a-zA-Z][a-zA-Z0-9_]{3,15}$/;
+			let priceReg=/^[1-9]\d?(\.(\d)*)?$/;
+			let errors=new Map();
+			
+			function validate(message) {
+                errors.clear();
+               // if(message.foodName){
+                 //   if(!nameReg.test(message.foodName)){errors.set('foodName','name error.');}
+               // }
+                if(message.price){
+                    if(!priceReg.test(message.price)){errors.set('price','price error.');}
+                }
+			}
+			
+		 	function renderError(errors) {
+		 		let foodNameSpan=document.querySelector("#myForm input[name=foodName]").nextElementSibling;
+		 		foodNameSpan.textContent=errors.get('foodName');
+
+		 		let priceSpan=document.querySelector("#myForm input[name=price]").nextElementSibling;
+		 		priceSpan.textContent=errors.get('price');
+			}
+		 	
+		 	document.querySelector("#myForm").addEventListener("change",function (e) {
+		 		let foodName=document.querySelector("#myForm input[name=foodName]").value;
+		 		let price=document.querySelector("#myForm input[name=price]").value;
+		 		let message={foodName:foodName,price:price};
+		 		validate(message);
+		 		renderError(errors);
+		 		
+		 	})
 			showShopStatus = function() {
-				alert(666);
 				let url = "http://localhost:9090/typhoon_merchant/showShopStatusServlet";
 				let method = "GET";
 				let headers = [ {
@@ -102,13 +131,17 @@
 				}
 				///////////////////////////////////////////
 				function getData(method, url, data, headers) {
-					alert(234)
 					$.ajax({
 						type : method,
 						url : url,
 						dataType:"json",
 						success : function(data) {
-							alert(data)
+							let checkStatus = JSON.stringify(data)
+							let status = JSON.parse(checkStatus);
+							if(status.checkStatus!=1){
+								alert("你没有资格")
+								window.location.href='showShopStatus.html'
+							}
 						},
 						error : function(err) {
 							alert(JSON.stringify(err));
@@ -119,20 +152,32 @@
 				getData(method, url, null, headers);
 			}
 			uploadFood = function() {
-	            var options = {
-	                url: "AddfoodServlet",
-	                type: "post",
-	                dataType: 'json',
-	                success: function (data) {
-	                	window.location.href='showMyFoods.html'
-	                },
-	                error: function (err) {
-	                }
-	            };
-	            //jquery.form使用方式
-	            $("#myForm").ajaxSubmit(options);
-	            return false;
+				let foodName=document.querySelector("#myForm input[name=foodName]").value;
+		 		let price=document.querySelector("#myForm input[name=price]").value;
+		 		let picture=document.querySelector("#myForm input[name=picture]").value;
+		 		let info=document.querySelector("#myForm input[name=info]").value;
+		 		let status=document.querySelector("#myForm input[name=status]").value;
+		 		
+		        if(foodName&&price&&picture&&info&&status&&(errors.size==0)){
+					var options = {
+			                url: "AddfoodServlet",
+			                type: "post",
+			                dataType: 'json',
+			                success: function (data) {
+			                	window.location.href='showMyFoods.html'
+			                },
+			                error: function (err) {
+			                }
+			            };
+			            //jquery.form使用方式
+			            $("#myForm").ajaxSubmit(options);
+			            return false;
+				}else{
+					alert("你输入的信息有误")
+				}
+	            
 	        };
+	        showShopStatus();
 		}
 	</script>
 </body>

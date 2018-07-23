@@ -151,6 +151,38 @@ window.onload = function() {
         "value" : "application/json",
 
     } ];
+    showShopStatus = function() {
+		let url = "http://localhost:9090/typhoon_merchant/showShopStatusServlet";
+		let method = "GET";
+		let headers = [ {
+			"key" : "Content-Type",
+			"value" : "application/json"
+		} ];
+		///////////////////////////////////////////
+		function renderTable(checkStatus) {
+		}
+		///////////////////////////////////////////
+		function getData(method, url, data, headers) {
+			$.ajax({
+				type : method,
+				url : url,
+				dataType:"json",
+				success : function(data) {
+					let checkStatus = JSON.stringify(data)
+					let status = JSON.parse(checkStatus);
+					if(status.checkStatus!=1){
+						alert("你没有资格")
+						window.location.href='showShopStatus.html'
+					}
+				},
+				error : function(err) {
+					alert(JSON.stringify(err));
+				}
+			});
+
+		}
+		getData(method, url, null, headers);
+	}
     function renderTable(data) {
         let tbody = document.querySelector("#tb");
         for (let i = 0; i < data.length; i++) {
@@ -170,7 +202,6 @@ window.onload = function() {
             let deleteA = $(
                 "<a href='#myModal' role='button' data-toggle='modal'>")
                 .append($("<i class='icon-remove'>"))
-            deleteA.appendTo(tr)
             tr.appendTo(tbody).addClass("datas");
         }
     }
@@ -233,7 +264,7 @@ window.onload = function() {
         $(".datas").remove();
         getData(method, url, null, headers);
     })
-
+showShopStatus();
     getData(method, url, null, headers)
 }
 </script>
