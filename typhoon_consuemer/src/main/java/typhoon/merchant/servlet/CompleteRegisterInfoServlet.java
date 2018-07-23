@@ -104,7 +104,7 @@ public class CompleteRegisterInfoServlet extends HttpServlet {
 		userService.sendRegisterInfoToAdmin(registerInfo1);//发给admin
 		registerInfoService.addRegisterInfo(registerInfo2);//发给DB
 		resturantService.addDefaultResturant(shopId);
-		request.getSession().setAttribute("reg", registerInfo2);
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+//		request.getSession().setAttribute("reg", registerInfo2);
+//		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 }
