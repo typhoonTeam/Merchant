@@ -1,5 +1,5 @@
 window.onload = function() {
-    let url = "http://localhost:9090/typhoon_merchant/ShowRestaurantInfoServlet";
+    let url = "/typhoon_merchant/ShowRestaurantInfoServlet";
     let method = "GET";
     let headers = [ {
         "key" : "Content-Type",

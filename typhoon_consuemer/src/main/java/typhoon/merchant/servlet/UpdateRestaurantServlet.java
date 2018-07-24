@@ -61,17 +61,17 @@ public class UpdateRestaurantServlet extends HttpServlet {
 			for(FileItem fileItem:fileItems) {
 				if(fileItem.isFormField()) {
 					if (fileItem.getFieldName().equals("openTime")) {
-						openTime = fileItem.getString();
+						openTime = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("closeTime")) {
-						closeTime = fileItem.getString();
+						closeTime = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("delivery")) {
 						delivery = Double.valueOf(fileItem.getString());
 					} else if (fileItem.getFieldName().equals("deliFee")) {
 						deliFee = Double.valueOf(fileItem.getString());
 					} else if (fileItem.getFieldName().equals("slogan")) {
-						slogan = fileItem.getString();
+						slogan = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					} else if (fileItem.getFieldName().equals("comments")) {
-						comments = fileItem.getString();
+						comments = new String(fileItem.getString().getBytes("iso8859-1"), "UTF-8");
 					}
 				}else {
 					if(fileItem.getName()!="") {

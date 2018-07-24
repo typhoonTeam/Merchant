@@ -85,6 +85,7 @@ public class ApplyServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		String shopName = new RegisterInfoDaoImpl().findRegisterInfoByShopId(shopId).getShopName();
+		System.out.println(shopName);
 		Advertisement ad1 = new Advertisement(shopId, shopName,picture, slogan,price, 0, time);
 		Advertisement ad2 = new Advertisement(shopId, shopName, picture2, slogan,price, 0, time);
 	    service.addAd(ad2);

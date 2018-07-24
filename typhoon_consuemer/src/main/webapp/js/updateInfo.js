@@ -1,6 +1,6 @@
 window.onload = function() {
 
-    let url="http://localhost:9090/typhoon_merchant/ShowRestaurantDetailServlet";
+    let url="/typhoon_merchant/ShowRestaurantDetailServlet";
     let headers=[{"key":"Content-Type","value":"application/json"}];
     function render(data) {
         $(".openTime").val(data.openTime);

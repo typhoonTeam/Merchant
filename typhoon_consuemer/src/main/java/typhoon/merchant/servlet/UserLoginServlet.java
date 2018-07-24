@@ -51,10 +51,14 @@ public class UserLoginServlet extends HttpServlet {
 
 		} else if (status == 0) {
 			System.out.println("没有该账号 ：" + username);
-			response.sendRedirect("login.html");
+//			response.sendRedirect("login.html");
+			response.getWriter().print(
+					"<script language='javascript'>alert('this merchant can not be found');window.location.href='login.html';</script>");
 		} else if (status == -1) {
 			System.out.println("密码错误 :" + username);
-			response.sendRedirect("login.html");
+//			response.sendRedirect("login.html");
+			response.getWriter().print(
+					"<script language='javascript'>alert('wrong password');window.location.href='login.html';</script>");
 		}
 //		if (status == 1) {
 //			System.out.println("登录成功");
